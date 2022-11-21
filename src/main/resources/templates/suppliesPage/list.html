@@ -1,0 +1,33 @@
+
+<div class="main-table" th:fragment="list">
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="width: 10%">id</th>
+            <th style="width: 30%">Книги</th>
+            <th style="width: 30%">Дата поставки</th>
+            <th style="width: 30%">Поставщик</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${#numbers.sequence(supplies.size() - 1, 0, -1)}" th:with="phoneNumber=${supplies[i]}" class="table-row">
+            <td style="text-align: center">
+                <div class="phoneNumber-id" th:text="${phoneNumber.supplyId}">
+                </div>
+            </td>
+            <td style="text-align: center" th:text="${phoneNumber.getSupplyBooks()}">
+                <div class="phoneNumber-unionMembers">
+                </div>
+            </td>
+            <td style="text-align: center">
+                <div class="phoneNumber-date" th:text="${phoneNumber.getDateInNormalFormat()}">
+                </div>
+            </td>
+            <td style="text-align: center" th:text="${phoneNumber.meetingMinute.supplierName}">
+                <div class="meetingMinute-name">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

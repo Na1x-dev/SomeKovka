@@ -1,0 +1,26 @@
+<div class="main-table" th:fragment="list">
+
+    <form class="sql-form" method="post" id="sql-command-form" th:action="@{/sqlPage/index}">
+        <textarea required id="sql-command-textarea" class="sql-command sql-textarea" form="sql-command-form"
+                  placeholder="Введите ваш SQL-запрос" rows="7"
+                  th:text="${sqlRequest.sqlString}" th:field="${sqlRequest.sqlString}"></textarea>
+        <button class="send-sql-command" type="submit">Выполнить запрос</button>
+        <textarea class="sql-output sql-textarea" rows="3" readonly="readonly" th:text="${sqlRequest.error}"></textarea>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:each="headerCell : ${tableContent.tableHeader}" th:text="${headerCell}"
+                class="table-header-cell table-cell">someHead
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tableRow : ${tableContent.tableRowContent}" class="table-row">
+            <td class="table-content-cell table-cell" th:each="tableCell : ${tableRow}" style="text-align: center"
+                th:text="${tableCell}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

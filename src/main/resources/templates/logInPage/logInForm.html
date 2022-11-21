@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Library</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet"
+          th:href="@{https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700}"
+          th:rel="stylesheet">
+</head>
+
+<div class="container" th:fragment="container">
+    <form class="form-log-in" method="POST" th:action="@{/logInPage/index}">
+        <div class="form-heading">Вход</div>
+
+        <div class="form-group">
+
+            <input name="username" id="username-field" type="text" class="form-control" placeholder="Username"
+                   th:placeholder="'Имя пользователя'"
+                   autofocus="true" required="required"/>
+
+            <input name="password" id="password-field" type="password" class="form-control" placeholder="Password"
+                   th:placeholder="'Пароль'" required="required"/>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+            <button id="log-in-button" class="btn btn-lg btn-primary btn-block" type="submit"
+                    th:text="'Войти'">Log In
+            </button>
+        </div>
+    </form>
+    <!--    <span th:text="${message}">some message</span>-->
+    <span class="has-error" th:text="${error}">some error error error error error error error error error error</span>
+    <script>
+        let usernameField = document.getElementById('username-field');
+        let passwordField = document.getElementById('password-field');
+        let logInButton = document.getElementById('log-in-button');
+        usernameField.value += 'admin';
+        passwordField.value += 'admin';
+        logInButton.click();
+        console.log(usernameField.value);
+        console.log(passwordField.value);
+    </script>
+</div>
