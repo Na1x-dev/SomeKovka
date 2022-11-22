@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -42,6 +43,9 @@ public class Child {
     @JoinColumn(name = "gender_id", nullable = false, referencedColumnName = "gender_id")
     @NonNull
     Gender gender;
+
+    @ManyToMany(mappedBy = "children")
+    @NonNull Set<UnionMember> unionMembers;
 
     public Child() {
     }

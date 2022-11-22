@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Library</title>
-    <link rel="stylesheet" href="../../static/css/newPhoneNumber.css" th:rel="stylesheet"
-          th:href="@{/css/newPhoneNumber.css}">
+    <link rel="stylesheet" href="../../static/css/main.css" th:rel="stylesheet"
+          th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="../../static/css/table.css" th:rel="stylesheet"
+          th:href="@{/css/table.css}">
     <link rel="stylesheet" href="../../static/css/header.css" th:rel="stylesheet"
           th:href="@{/css/header.css}">
     <link rel="stylesheet" href="../../static/css/general.css" th:rel="stylesheet"
@@ -20,21 +22,10 @@
 <header th:replace="generalElements/headerForUsers :: header"></header>
 <!--<header th:replace="generalElements/header :: header"></header>-->
 <main id="main">
-<div th:replace="/newSupplyPage/supplyForm :: phoneNumber-form"></div>
+    <div class="main-table" th:replace="publicOrganizationsPage/list :: list">
+
+    </div>
 </main>
 <!--<footer th:replace="commonElements/footer :: footer">someFooter</footer>-->
-<script>
-    var date = new Date();
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;
-    document.getElementById("date-picker").value = today;
-</script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -59,5 +60,10 @@ public class UnionMember {
     @OneToMany(mappedBy = "unionMember", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     List<PhoneNumber> phoneNumbers;
+
+    @ManyToMany
+    @NonNull
+    @ToString.Exclude
+    Set<Child> children;
 
 }

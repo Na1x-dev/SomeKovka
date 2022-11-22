@@ -24,10 +24,6 @@ public class MaterialPayment {
     @Column(name="payment_amount")
     Double paymentAmount;
 
-    @NonNull
-    @Column(name = "publisher_title")
-    String publisherTitle;
-
     @ManyToOne
     @JoinColumn(name = "ground_id", nullable = false, referencedColumnName = "ground_id")
     @NonNull

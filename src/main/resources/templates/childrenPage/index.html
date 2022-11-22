@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Library</title>
-    <link rel="stylesheet" href="../../static/css/sales.css" th:rel="stylesheet"
-          th:href="@{/css/sales.css}">
+    <link rel="stylesheet" href="../../static/css/main.css" th:rel="stylesheet"
+          th:href="@{/css/main.css}">
     <link rel="stylesheet" href="../../static/css/table.css" th:rel="stylesheet"
           th:href="@{/css/table.css}">
     <link rel="stylesheet" href="../../static/css/header.css" th:rel="stylesheet"
@@ -21,13 +21,10 @@
 <header th:replace="generalElements/header :: header"></header>
 <header th:replace="generalElements/headerForUsers :: header"></header>
 <!--<header th:replace="generalElements/header :: header"></header>-->
-<main id="main" >
-    <div class="main-table" th:replace="salesPage/list :: list">
+<main id="main">
+    <div class="main-table" th:replace="positionsPage/list :: list">
 
     </div>
-
-
-
 </main>
 <!--<footer th:replace="commonElements/footer :: footer">someFooter</footer>-->
 </body>

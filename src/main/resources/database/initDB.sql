@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS union_members (
   surname VARCHAR(50) NOT NULL,
   name VARCHAR(50) NOT NULL,
   patronymic VARCHAR(50) NULL,
-  birthday DATETIME(6) NOT NULL,
+  birthdate DATETIME(6) NOT NULL,
   gender_id bigint NOT NULL,
   position_id bigint NOT NULL,
   CONSTRAINT union_members_positions

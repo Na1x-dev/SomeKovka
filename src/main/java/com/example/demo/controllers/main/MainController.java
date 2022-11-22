@@ -8,10 +8,12 @@ import com.example.demo.services.groundsForFinPayment.GroundsForFinPaymentServic
 import com.example.demo.services.materialPayment.MaterialPaymentService;
 import com.example.demo.services.meetingMinute.MeetingMinuteService;
 import com.example.demo.services.phoneNumber.PhoneNumberService;
+import com.example.demo.services.position.PositionService;
 import com.example.demo.services.publicOrganization.PublicOrganizationService;
 import com.example.demo.services.unionMember.UnionMemberService;
 
 import com.example.demo.services.user.UserService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class MainController {
@@ -47,14 +52,92 @@ public class MainController {
     @Autowired
     PublicOrganizationService publicOrganizationService;
 
+    @Autowired
+    PositionService positionService;
+
 
     @GetMapping({"/mainPage/index"})
     public String mainPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
 //        model.addAttribute("updateBook", new UnionMember());
-        model.addAttribute("books", applicationTypeService.readAll());
+        model.addAttribute("unionMembers", unionMemberService.readAll());
         return "mainPage/index";
     }
+
+    @GetMapping({"/childrenPage/index"})
+    public String childrenPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("parentsChildren", getParentChildList());
+        return "childrenPage/index";
+    }
+
+    @GetMapping({"/unionMemPubOrgPage/index"})
+    public String unionMemPubOrgPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("unionMembers", unionMemberService.readAll());
+        return "unionMemPubOrgPage/index";
+    }
+
+    @GetMapping({"/publicOrganizationsPage/index"})
+    public String publicOrganizationsPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("publicOrganizations", publicOrganizationService.readAll());
+        return "publicOrganizationsPage/index";
+    }
+
+    @GetMapping({"/positionsPage/index"})
+    public String positionsPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("positions", positionService.readAll());
+        return "positionsPage/index";
+    }
+
+    @GetMapping({"/unionMembersApplicationsPage/index"})
+    public String unionMembersApplicationsPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("applications", applicationService.readAll());
+        return "unionMembersApplicationsPage/index";
+    }
+
+    @GetMapping({"/applicationTypesPage/index"})
+    public String applicationTypesPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("applicationTypes", applicationTypeService.readAll());
+        return "applicationTypesPage/index";
+    }
+
+    @GetMapping({"/paymentsAmountPage/index"})
+    public String paymentsAmountPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("materialPayments", materialPaymentService.readAll());
+        return "paymentsAmountPage/index";
+    }
+
+    @GetMapping({"/groundsForFinPayPage/index"})
+    public String groundsForFinPayPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("groundsForFinPayments", groundsForFinPaymentService.readAll());
+        return "groundsForFinPayPage/index";
+    }
+
+    @GetMapping({"/meetingMinutesPage/index"})
+    public String meetingMinutesPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+//        model.addAttribute("updateBook", new UnionMember());
+        model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
+        return "meetingMinutesPage/index";
+    }
+
+
+
 
     @GetMapping({"/clientsPage/index"})
     public String clientsPage(Model model, Principal user) {
@@ -121,6 +204,18 @@ public class MainController {
 //        applicationTypeService.delete(bookId);
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         return "redirect:/mainPage/index";
+    }
+
+    public List<ParentChild> getParentChildList(){
+        List<UnionMember> unionMembers = unionMemberService.readAll();
+        List<ParentChild> parentsChildren = new ArrayList<>();
+        for(UnionMember unionMember : unionMembers){
+            Set<Child> children = unionMember.getChildren();
+            for(Child child : children){
+                parentsChildren.add(new ParentChild(unionMember, child));
+            }
+        }
+        return parentsChildren;
     }
 
 //

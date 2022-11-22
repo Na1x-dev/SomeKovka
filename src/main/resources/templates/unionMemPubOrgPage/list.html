@@ -8,15 +8,11 @@
             <th style="width: 20%">Фамилия</th>
             <th style="width: 20%">Имя</th>
             <th style="width: 20%">Отчество</th>
-            <th style="width: 20%">Дата рождения</th>
-            <th style="width: 20%">Пол</th>
-            <th style="width: 10%">Должность</th>
-            <th style="width: 5%">Номер телефона</th>
+            <th style="width: 5%">Общественная организация</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="i : ${#numbers.sequence(unionMembers.size() - 1, 0, -1)}" th:with="unionMember=${unionMembers[i]}" class="table-row">
-
             <td style="text-align: center">
                 <div class="unionMember-id" th:text="${unionMember.unionMemberId}">
                 </div>
@@ -34,19 +30,7 @@
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-genre" th:text="${unionMember.birthdate}">
-                </div>
-            </td>
-            <td style="text-align: center">
-                <div class="unionMember-groundsForFinPayment" th:text="${unionMember.gender.genderTitle}">
-                </div>
-            </td>
-            <td style="text-align: center">
-                <div class="unionMember-price" th:text="${unionMember.position.positionTitle}">
-                </div>
-            </td>
-            <td style="text-align: center">
-                <div class="unionMember-amount" th:text="${unionMember.phoneNumber.phoneNumber}">
+                <div class="unionMember-id" th:text="${unionMember.publicOrganization.publicOrganizationTitle}">
                 </div>
             </td>
 
