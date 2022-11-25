@@ -48,6 +48,8 @@ public class Application {
     MeetingMinute meetingMinute;
 
     public Application() {
+        registerDate = new Date();
+
     }
 
     public String getDateInNormalFormat() {

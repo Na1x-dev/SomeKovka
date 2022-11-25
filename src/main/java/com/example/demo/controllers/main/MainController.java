@@ -59,7 +59,6 @@ public class MainController {
     @Autowired
     ChildService childService;
 
-
     @GetMapping({"/mainPage/index"})
     public String mainPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
@@ -156,37 +155,82 @@ public class MainController {
     public String unionMembersApplicationsPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("applications", applicationService.readAll());
+        model.addAttribute("newApplication", new Application());
+        model.addAttribute("unionMembers", unionMemberService.readAll());
+        model.addAttribute("applicationTypes", applicationTypeService.readAll());
+        model.addAttribute("materialPayments", materialPaymentService.readAll());
+        model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
         return "unionMembersApplicationsPage/index";
+    }
+
+    @PostMapping("/unionMembersApplicationsPage/index/add")
+    public String unionMembersApplicationsPageAdd(Model model, @ModelAttribute("newApplication") Application newApplication, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        applicationService.create(newApplication);
+        return "redirect:/unionMembersApplicationsPage/index";
     }
 
     @GetMapping({"/applicationTypesPage/index"})
     public String applicationTypesPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("applicationTypes", applicationTypeService.readAll());
+        model.addAttribute("newApplicationType", new ApplicationType());
         return "applicationTypesPage/index";
+    }
+
+    @PostMapping("/applicationTypesPage/index/add")
+    public String applicationTypesPageAdd(Model model, @ModelAttribute("newApplicationType") ApplicationType newApplicationType, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        applicationTypeService.create(newApplicationType);
+        return "redirect:/applicationTypesPage/index";
     }
 
     @GetMapping({"/paymentsAmountPage/index"})
     public String paymentsAmountPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("materialPayments", materialPaymentService.readAll());
+        model.addAttribute("grounds", groundsForFinPaymentService.readAll());
+        model.addAttribute("newMaterialPayment", new MaterialPayment());
         return "paymentsAmountPage/index";
+    }
+
+    @PostMapping("/paymentsAmountPage/index/add")
+    public String paymentsAmountPageAdd(Model model, @ModelAttribute("newMaterialPayment") MaterialPayment newMaterialPayment, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        newMaterialPayment.setGroundsForFinPayment(groundsForFinPaymentService.readById(newMaterialPayment.getGroundsForFinPayment().getGroundId()));
+        materialPaymentService.create(newMaterialPayment);
+        return "redirect:/paymentsAmountPage/index";
     }
 
     @GetMapping({"/groundsForFinPayPage/index"})
     public String groundsForFinPayPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("groundsForFinPayments", groundsForFinPaymentService.readAll());
+        model.addAttribute("newPayGround", new GroundsForFinPayment());
         return "groundsForFinPayPage/index";
+    }
+
+    @PostMapping("/groundsForFinPayPage/index/add")
+    public String groundsForFinPayPageAdd(Model model, @ModelAttribute("newPayGround") GroundsForFinPayment newPayGround, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        groundsForFinPaymentService.create(newPayGround);
+        return "redirect:/groundsForFinPayPage/index";
     }
 
     @GetMapping({"/meetingMinutesPage/index"})
     public String meetingMinutesPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("newMeetingMinute", new MeetingMinute());
         model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
         return "meetingMinutesPage/index";
     }
 
+    @PostMapping("/meetingMinutesPage/index/add")
+    public String meetingMinutesPageAdd(Model model, @ModelAttribute("newMeetingMinute") MeetingMinute newMeetingMinute, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        meetingMinuteService.create(newMeetingMinute);
+        return "redirect:/meetingMinutesPage/index";
+    }
 
     @GetMapping({"/newSupplyPage/index"})
     public String newSupply(Model model, Principal user) {

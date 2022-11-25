@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,5 +42,12 @@ public class MeetingMinute {
     List<Application> applications;
 
     public MeetingMinute() {
+        meetingMinuteDate = new Date();
+        meetingMinuteTheme = "";
+    }
+
+    public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(getMeetingMinuteDate());
     }
 }

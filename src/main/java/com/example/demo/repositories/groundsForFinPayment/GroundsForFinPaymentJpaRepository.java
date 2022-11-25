@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GroundsForFinPaymentJpaRepository extends JpaRepository<GroundsForFinPayment, Long> {
 
+    GroundsForFinPayment getByGroundId(Long groundId);
 }

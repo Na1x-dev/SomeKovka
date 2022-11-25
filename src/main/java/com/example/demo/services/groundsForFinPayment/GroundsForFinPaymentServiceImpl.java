@@ -23,5 +23,10 @@ public class GroundsForFinPaymentServiceImpl implements GroundsForFinPaymentServ
         return groundsForFinPaymentJpaRepository.findAll();
     }
 
+    @Override
+    public GroundsForFinPayment readById(Long groundId) {
+        return groundsForFinPaymentJpaRepository.getByGroundId(groundId);
+    }
+
 
 }

@@ -1,6 +1,29 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-pay-ground-form" class="new-pay-ground-container"
+                  th:action="@{/groundsForFinPayPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новое основание материальной выплаты'">
+                </div>
+                <div class="new-pay-ground-inputs new-inputs">
+                    <input type="text" class="title-input new-pay-ground-input" placeholder="Название основания материальной выплаты"
+                           autofocus required="required" th:field="${newPayGround.groundText}"/>
+                </div>
+                <div class="bottom-new-pay-ground-buttons">
+                    <button type="submit" class="confirm-add-new-pay-ground-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-pay-ground-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-pay-ground-container').querySelector('.bottom-new-pay-ground-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить основание материальной выплаты
+        </a>
+    </div>
     <table class="table">
         <thead>
         <tr>

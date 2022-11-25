@@ -1,6 +1,42 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-application-form" class="new-application-container"
+                  th:action="@{/unionMembersApplicationsPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новое заявление'">
+                </div>
+                <div class="new-application-inputs new-inputs">
+                    <select name="unionMember" th:field="${newApplication.unionMember.unionMemberId}">
+                        <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                    </select>
+                    <input type="date" class="new-application-input" placeholder="Дата заявления"
+                           autofocus="true" required="required" th:field="${newApplication.registerDate}"/>
+                    <select name="applicationType" th:field="${newApplication.applicationType.applicationTypeId}">
+                        <option th:each="applicationType : ${applicationTypes}" th:value="${applicationType.applicationTypeId}" th:utext="${applicationType.applicationTypeTitle}"></option>
+                    </select>
+                    <select name="materialPayment" th:field="${newApplication.materialPayment.materialPaymentId}">
+                        <option th:each="materialPayment : ${materialPayments}" th:value="${materialPayment.materialPaymentId}" th:utext="${materialPayment.getAmountAndGround()}"></option>
+                    </select>
+                    <select name="meetingMinute" th:field="${newApplication.meetingMinute.meetingMinuteId}">
+                        <option th:each="meetingMinute : ${meetingMinutes}" th:value="${meetingMinute.meetingMinuteId}" th:utext="${meetingMinute.meetingMinuteNumber}"></option>
+                    </select>
+                </div>
+                <div class="bottom-new-application-buttons">
+                    <button type="submit" class="confirm-add-new-application-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+
+        </dialog>
+        <a class="new-application-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-application-container').querySelector('.bottom-new-application-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить заявление
+        </a>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -18,42 +54,42 @@
         </thead>
         <tbody>
         <tr th:each="i : ${#numbers.sequence(applications.size() - 1, 0, -1)}"
-            th:with="application=${applications[i]}" class="table-row">
+            th:with="applicat=${applications[i]}" class="table-row">
 
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.applicationId}">
+                <div class="table-cell" th:text="${applicat.applicationId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.unionMember.surname}">
+                <div class="table-cell" th:text="${applicat.unionMember.surname}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.unionMember.name}">
+                <div class="table-cell" th:text="${applicat.unionMember.name}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.unionMember.patronymic}">
+                <div class="table-cell" th:text="${applicat.unionMember.patronymic}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.registrationDate}">
+                <div class="table-cell" th:text="${applicat.getDateInNormalFormat()}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.applicationType.applicationTypeTitle}">
+                <div class="table-cell" th:text="${applicat.applicationType.applicationTypeTitle}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.meetingMinute.meetingMinuteNumber}">
+                <div class="table-cell" th:text="${applicat.meetingMinute.meetingMinuteNumber}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.materialPayment.paymentAmount}">
+                <div class="table-cell" th:text="${applicat.materialPayment.paymentAmount}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${application.materialPayment.groundForFinPayment}">
+                <div class="table-cell" th:text="${applicat.materialPayment.groundsForFinPayment.groundText}">
                 </div>
             </td>
 

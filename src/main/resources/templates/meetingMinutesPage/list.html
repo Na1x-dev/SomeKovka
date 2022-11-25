@@ -1,13 +1,40 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-meeting-minute-form" class="new-meeting-minute-container"
+                  th:action="@{/meetingMinutesPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новый протокол заседания'">
+                </div>
+                <div class="new-meeting-minute-inputs new-inputs">
+                    <input class="title-input new-meeting-minute-input" placeholder="Номер протокола"
+                           autofocus required="required" th:field="${newMeetingMinute.meetingMinuteNumber}"/>
+                    <input type="date" class="date-input new-meeting-minute-input" placeholder="Дата протокола"
+                           autofocus="true" required="required" th:field="${newMeetingMinute.meetingMinuteDate}"/>
+                    <input class="title-input new-meeting-minute-input" placeholder="Тема заседания"
+                           autofocus required="required" th:field="${newMeetingMinute.meetingMinuteTheme}"/>
+                </div>
+                <div class="bottom-new-meeting-minute-buttons">
+                    <button type="submit" class="confirm-add-new-meeting-minute-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-meeting-minute-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-meeting-minute-container').querySelector('.bottom-new-meeting-minute-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить протокол заседания
+        </a>
+    </div>
     <table class="table">
         <thead>
         <tr>
             <th style="width: 10%">id</th>
-            <th style="width: 25%">Номер протокола</th>
-            <th style="width: 25%">Дата протокола</th>
-            <th style="width: 40%">Тема заседания</th>
+            <th style="width: 20%">Номер протокола</th>
+            <th style="width: 15%">Дата протокола</th>
+            <th style="width: 55%">Тема заседания</th>
         </tr>
         </thead>
         <tbody>
@@ -21,7 +48,7 @@
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="table-cell" th:text="${meetingMinute.meetingMinuteDate}">
+                <div class="table-cell" th:text="${meetingMinute.getDateInNormalFormat()}">
                 </div>
             </td>
             <td style="text-align: center">

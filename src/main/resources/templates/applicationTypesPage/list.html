@@ -1,6 +1,31 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-application-type-form" class="new-application-type-container"
+                  th:action="@{/applicationTypesPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новый тип заявления'">
+                </div>
+                <div class="new-application-type-inputs new-inputs">
+                    <input type="text" class="title-input new-application-type-input" placeholder="Название типа заявления"
+                           autofocus required="required" th:field="${newApplicationType.applicationTypeTitle}"/>
+                </div>
+                <div class="bottom-new-application-type-buttons">
+                    <button type="submit" class="confirm-add-new-application-type-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-application-type-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-application-type-container').querySelector('.bottom-new-application-type-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить тип заявления
+        </a>
+    </div>
+
     <table class="table">
         <thead>
         <tr>

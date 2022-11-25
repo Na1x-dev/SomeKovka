@@ -11,5 +11,5 @@ public interface GroundsForFinPaymentService {
     List<GroundsForFinPayment> readAll();
 
 
-
+    GroundsForFinPayment readById(Long groundId);
 }

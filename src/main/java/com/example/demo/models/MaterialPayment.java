@@ -36,4 +36,8 @@ public class MaterialPayment {
 
     public MaterialPayment() {
     }
+
+    public String getAmountAndGround(){
+        return paymentAmount + " - " + groundsForFinPayment.groundText;
+    }
 }
