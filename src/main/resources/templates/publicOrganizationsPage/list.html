@@ -1,21 +1,46 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-public-organization-form" class="new-public-organization-container"
+                  th:action="@{/publicOrganizationsPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новая организация'">
+                </div>
+                <div class="new-public-organization-inputs new-inputs">
+                    <input type="text" class="title-input new-public-organization-input" placeholder="Название организации"
+                           autofocus required="required" th:field="${newPublicOrganization.publicOrganizationTitle}"/>
+                </div>
+                <div class="bottom-new-public-organization-buttons">
+                    <button type="submit" class="confirm-add-new-public-organization-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-public-organization-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-public-organization-container').querySelector('.bottom-new-public-organization-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить организацию
+        </a>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
-            <th style="width: 5%">id</th>
-            <th style="width: 20%">Общественная организация</th>
+            <th style="width: 10%">id</th>
+            <th style="width: 90%">Общественная организация</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="i : ${#numbers.sequence(publicOrganizations.size() - 1, 0, -1)}" th:with="publicOrganization=${publicOrganizations[i]}" class="table-row">
             <td style="text-align: center">
-                <div class="unionMember-id" th:text="${publicOrganization.publicOrganizationId}">
+                <div class="table-cell" th:text="${publicOrganization.publicOrganizationId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-name" th:text="${publicOrganization.publicOrganizationTitle}">
+                <div class="table-cell" th:text="${publicOrganization.publicOrganizationTitle}">
                 </div>
             </td>
 

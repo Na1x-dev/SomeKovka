@@ -9,4 +9,8 @@ public interface UnionMemberService {
 
     List<UnionMember> readAll();
 
+    UnionMember readById(Long unionMemberId);
+
+
+     boolean update(Long id, UnionMember unionMember);
 }

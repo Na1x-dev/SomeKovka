@@ -1,24 +1,99 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th style="width: 5%">id</th>
-            <th style="width: 20%">Должность</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="i : ${#numbers.sequence(positions.size() - 1, 0, -1)}" th:with="position=${positions[i]}" class="table-row">
 
-            <td style="text-align: center">
-                <div class="unionMember-id" th:text="${position.positionId}">
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-child-form" class="new-child-container"
+                  th:action="@{/childrenPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новый ребенок'">
                 </div>
-            </td>
-            <td style="text-align: center">
-                <div class="unionMember-name" th:text="${position.positionTitle}">
+                <div class="new-child-inputs new-inputs">
+                    <input type="text" class="surname-input new-child-input" placeholder="Фамилия"
+                           autofocus required="required" th:field="${newChild.surname}"/>
+                    <input type="text" class="name-input new-child-input" placeholder="Имя"
+                           autofocus required="required" th:field="${newChild.name}"/>
+                    <input type="text" class="patronymic-input new-child-input" placeholder="Отчество"
+                           autofocus required="required" th:field="${newChild.patronymic}"/>
+                    <input type="date" class="birthdate-input new-child-input" placeholder="Дата рождения"
+                           autofocus="true" required="required" th:field="${newChild.birthdate}"/>
+                    <select name="gender" th:field="${newChild.gender.genderId}" >
+                        <option th:each="gender : ${genders}" th:value="${gender.genderId}" th:utext="${gender.genderTitle}"></option>
+                    </select>
+
+                    <select name="unionMember" th:field="${newChild.childId}">
+                        <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                    </select>
                 </div>
-            </td>
+                <div class="bottom-new-child-buttons">
+                    <button type="submit" class="confirm-add-new-child-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+
+        </dialog>
+        <a class="new-child-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-child-container').querySelector('.bottom-new-child-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить ребенка
+        </a>
+    </div>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: 5%">id род.</th>
+                    <th style="width: 15%">Фамилия род.</th>
+                    <th style="width: 10%">Имя род.</th>
+                    <th style="width: 15%">Отчество род.</th>
+                    <th style="width: 5%">id род.</th>
+                    <th style="width: 15%">Фамилия реб.</th>
+                    <th style="width: 10%">Имя реб.</th>
+                    <th style="width: 15%">Отчество реб.</th>
+                    <th style="width: 10%">Дата рождения</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="i : ${#numbers.sequence(parentsChildren.size() - 1, 0, -1)}"
+                    th:with="parentChild=${parentsChildren[i]}" class="table-row">
+
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.unionMember.unionMemberId}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.unionMember.surname}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.unionMember.name}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.unionMember.patronymic}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.child.unionMemberId}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.child.surname}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.child.name}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.child.patronymic}">
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        <div class="table-cell" th:text="${parentChild.child.getDateInNormalFormat()}">
+                        </div>
+                    </td>
 
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
 <!--                <dialog id="update-dialog" class="update-dialog dialog">-->

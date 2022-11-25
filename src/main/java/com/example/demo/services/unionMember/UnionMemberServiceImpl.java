@@ -11,15 +11,30 @@ import java.util.List;
 public class UnionMemberServiceImpl implements UnionMemberService {
 
     @Autowired
-    UnionMemberJpaRepository supplyRepository;
+    UnionMemberJpaRepository unionMemberJpaRepository;
 
     @Override
     public UnionMember create(UnionMember unionMember) {
-        return supplyRepository.save(unionMember);
+        return unionMemberJpaRepository.save(unionMember);
     }
 
     @Override
     public List<UnionMember> readAll() {
-        return supplyRepository.findAll();
+        return unionMemberJpaRepository.findAll();
+    }
+
+    @Override
+    public UnionMember readById(Long unionMemberId) {
+        return unionMemberJpaRepository.getByUnionMemberId(unionMemberId);
+    }
+
+    @Override
+    public boolean update(Long id, UnionMember unionMember) {
+        if (unionMemberJpaRepository.existsById(id)) {
+            unionMember.setUnionMemberId(id);
+            unionMemberJpaRepository.save(unionMember);
+            return true;
+        }
+        return false;
     }
 }

@@ -23,4 +23,9 @@ public class PositionServiceImpl implements PositionService {
     public List<Position> readAll() {
         return positionJpaRepository.findAll();
     }
+
+    @Override
+    public Position readById(Long positionId) {
+        return positionJpaRepository.getByPositionId(positionId);
+    }
 }

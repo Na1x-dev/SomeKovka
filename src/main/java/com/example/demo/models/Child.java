@@ -8,9 +8,8 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Data
@@ -44,9 +43,38 @@ public class Child {
     @NonNull
     Gender gender;
 
-    @ManyToMany(mappedBy = "children")
-    @NonNull Set<UnionMember> unionMembers;
+//        @ManyToMany(mappedBy = "children")
+//    @NonNull
+//    Set<UnionMember> unionMembers;
+
+//    @ManyToMany
+//    @NonNull
+//    @ToString.Exclude
+//    Set<UnionMember> unionMembers;
+
+    @ManyToMany
+    @JoinTable(
+            name = "union_members_children",
+            joinColumns = @JoinColumn(name = "child_id"),
+            inverseJoinColumns = @JoinColumn(name = "union_member_id"))
+    Set<UnionMember> unionMembers;
+
+    public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(birthdate);
+    }
+
+    public Long getUnionMemberId(){
+        Iterator<UnionMember> unionMemberIterator = unionMembers.iterator();
+        return unionMemberIterator.next().unionMemberId;
+    }
 
     public Child() {
+        surname = "";
+        name = "";
+        patronymic = "";
+        birthdate = new Date();
+        gender = new Gender();
+        unionMembers = new HashSet<>();
     }
 }

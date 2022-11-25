@@ -24,5 +24,15 @@ public class GenderServiceImpl implements GenderService {
         return genderJpaRepository.findAll();
     }
 
+    @Override
+    public Gender readByGenderTitle(String genderTitle) {
+        return genderJpaRepository.findGenderByGenderTitle(genderTitle);
+    }
+
+    @Override
+    public Gender readById(Long genderId) {
+        return genderJpaRepository.getByGenderId(genderId);
+    }
+
 
 }

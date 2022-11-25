@@ -9,4 +9,5 @@ public interface PositionService {
 
     List<Position> readAll();
 
+    Position readById(Long positionId);
 }

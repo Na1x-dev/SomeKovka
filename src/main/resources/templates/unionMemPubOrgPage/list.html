@@ -1,38 +1,71 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-phoneNumber-button to-something-new-button" href="../newSupplyPage/index.html"
-       th:href="@{../../newSupplyPage/index}">Новое поступление</a>
+
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-member-org-form" class="new-member-org-container"
+                  th:action="@{/unionMemPubOrgPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новый член организации'">
+                </div>
+
+
+                <div class="new-member-org-inputs new-inputs">
+                    <select name="publicOrganization" th:field="${newMemberOrg.publicOrganization.publicOrganizationId}" >
+                        <option th:each="publicOrganization : ${publicOrganizations}" th:value="${publicOrganization.publicOrganizationId}" th:utext="${publicOrganization.publicOrganizationTitle}"></option>
+                    </select>
+                    <select name="unionMember" th:field="${newMemberOrg.unionMember.unionMemberId}" >
+                        <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                    </select>
+                </div>
+                <div class="bottom-new-member-org-buttons">
+                    <button type="submit" class="confirm-add-new-member-org-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-member-org-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-member-org-container').querySelector('.bottom-new-member-org-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить нового члена в организацию
+        </a>
+    </div>
+
     <table class="table">
         <thead>
         <tr>
+            <th style="width: 25%">Общественная организация</th>
             <th style="width: 5%">id</th>
-            <th style="width: 20%">Фамилия</th>
+            <th style="width: 25%">Фамилия</th>
             <th style="width: 20%">Имя</th>
-            <th style="width: 20%">Отчество</th>
-            <th style="width: 5%">Общественная организация</th>
+            <th style="width: 25%">Отчество</th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="i : ${#numbers.sequence(unionMembers.size() - 1, 0, -1)}" th:with="unionMember=${unionMembers[i]}" class="table-row">
+        <tr th:each="i : ${#numbers.sequence(unionMembersPublicOrganizations.size() - 1, 0, -1)}" th:with="unit=${unionMembersPublicOrganizations[i]}" class="table-row">
             <td style="text-align: center">
-                <div class="unionMember-id" th:text="${unionMember.unionMemberId}">
+                <div class="table-cell" th:text="${unit.publicOrganization.publicOrganizationTitle}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-name" th:text="${unionMember.surname}">
+                <div class="table-cell" th:text="${unit.unionMember.unionMemberId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-position" th:text="${unionMember.name}">
+                <div class="table-cell" th:text="${unit.unionMember.surname}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-materialPayment" th:text="${unionMember.patronymic}">
+                <div class="table-cell" th:text="${unit.unionMember.name}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-id" th:text="${unionMember.publicOrganization.publicOrganizationTitle}">
+                <div class="table-cell" th:text="${unit.unionMember.patronymic}">
                 </div>
             </td>
+
 
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
 <!--                <dialog id="update-dialog" class="update-dialog dialog">-->

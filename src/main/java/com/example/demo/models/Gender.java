@@ -36,4 +36,8 @@ public class Gender {
 
     public Gender() {
     }
+
+    public Gender(String genderTitle){
+        this.genderTitle = genderTitle;
+    }
 }

@@ -7,15 +7,12 @@ import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Table(name = "union_members")
 @JsonIgnoreProperties("hibernateLazyInitializer")
 public class UnionMember {
@@ -61,9 +58,56 @@ public class UnionMember {
     @ToString.Exclude
     List<PhoneNumber> phoneNumbers;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "unionMembers")
     @NonNull
     @ToString.Exclude
     Set<Child> children;
 
+    @ManyToMany
+    @JoinTable(
+            name = "public_org_union_members",
+            joinColumns = @JoinColumn(name = "union_member_id"),
+            inverseJoinColumns = @JoinColumn(name = "public_organization_id"))
+    Set<PublicOrganization> publicOrganizations;
+
+//    @ManyToMany(mappedBy = "unionMembers")
+//    @NonNull
+//    Set<Child> children;
+
+    public UnionMember() {
+        surname = "";
+        name = "";
+        patronymic = "";
+        gender = new Gender();
+        birthdate = new Date();
+        position = new Position();
+        applications = new ArrayList<>();
+        phoneNumbers = new ArrayList<>();
+        children = new HashSet<>();
+        phoneNumbers.add(new PhoneNumber());
+    }
+
+    public String getIdAndName() {
+        return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+    }
+
+    public String getDateInNormalFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(birthdate);
+    }
+
+    @Override
+    public String toString() {
+        return "UnionMember{" +
+                "unionMemberId=" + unionMemberId +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", birthdate=" + birthdate +
+                ", gender=" + gender.genderTitle +
+                ", position=" + position.positionTitle +
+                ", children=" + children +
+                ", phoneNumber=" + phoneNumbers.get(0).phoneNumber +
+                '}';
+    }
 }

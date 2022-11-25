@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GenderJpaRepository extends JpaRepository<Gender, Long> {
+    public Gender findGenderByGenderTitle(String genderTitle);
 
+    Gender getByGenderId(Long genderId);
 }

@@ -1,10 +1,12 @@
 package com.example.demo.controllers.user;
 
+import com.example.demo.models.Gender;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.security.SecurityService;
 
 
+import com.example.demo.services.gender.GenderService;
 import com.example.demo.services.role.RoleService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UserController {
     private UserValidator userValidator;
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private GenderService genderService;
 
     @GetMapping("/signUpPage/index")
     public String registration(Model model) {
@@ -53,6 +58,7 @@ public class UserController {
     public String login(Model model, String error, String logout) {
         autoCreateRoles();
         autoRegisterAdmin();
+        autoCreateGenders();
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -90,6 +96,17 @@ public class UserController {
         if (roleService.readByRoleName("ROLE_USER") == null) {
             Role role = new Role("ROLE_USER");
             roleService.create(role);
+        }
+    }
+
+    public void autoCreateGenders() {
+        if (genderService.readByGenderTitle("Мужской") == null) {
+            Gender gender = new Gender("Мужской");
+            genderService.create(gender);
+        }
+        if (genderService.readByGenderTitle("Женский") == null) {
+            Gender gender = new Gender("Женский");
+            genderService.create(gender);
         }
     }
 }

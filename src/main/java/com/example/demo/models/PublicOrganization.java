@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -22,6 +23,11 @@ public class PublicOrganization {
     @Column(name = "public_organization_title")
     @NonNull
     String publicOrganizationTitle;
+
+    @ManyToMany(mappedBy = "publicOrganizations")
+    @NonNull
+    @ToString.Exclude
+    Set<UnionMember> unionMembers;
 
     public PublicOrganization() {
     }

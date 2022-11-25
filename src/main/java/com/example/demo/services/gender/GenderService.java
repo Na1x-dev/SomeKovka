@@ -11,4 +11,7 @@ public interface GenderService {
     List<Gender> readAll();
 
 
+    Gender readByGenderTitle(String genderTitle);
+
+    Gender readById(Long genderId);
 }

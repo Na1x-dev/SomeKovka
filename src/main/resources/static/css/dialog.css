@@ -1,0 +1,45 @@
+.dialog{
+    position: absolute;
+    margin: auto;
+    left:0;
+    right:0;
+    top:50%;
+    transform: translate(0, -50%);
+    background-color: #333333;
+    color:#eeeeee;
+    font-size:25px;
+    border-radius: 10px;
+    border-color: #777777;
+    padding: 20px;
+}
+
+.new-inputs{
+    display:flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+select, input{
+    font-size: 20px;
+    background-color: #444444;
+    color: #dddddd;
+    border: 0;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.dialog-button{
+    font-size: 20px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #444444;
+    color: #dddddd;
+    padding: 10px;
+}
+
+.dialog-button:hover{
+background-color:#555555;
+cursor: pointer;
+}

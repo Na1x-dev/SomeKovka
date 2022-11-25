@@ -1,3 +1,5 @@
+create database if not exists testdb;
+
 CREATE TABLE IF NOT EXISTS positions (
   position_id bigint AUTO_INCREMENT primary key,
   position_title LONGTEXT NOT NULL
@@ -39,16 +41,16 @@ CREATE TABLE IF NOT EXISTS children (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE IF NOT EXISTS children_parents (
+CREATE TABLE IF NOT EXISTS union_members_children(
   id bigint AUTO_INCREMENT primary key,
   child_id bigint NOT NULL,
   union_member_id bigint NOT NULL,
-  CONSTRAINT children_parents_union_members
+  CONSTRAINT union_members_children0
     FOREIGN KEY (union_member_id)
     REFERENCES union_members (union_member_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT children_parents_children
+  CONSTRAINT union_members_children1
     FOREIGN KEY (child_id)
     REFERENCES children (child_id)
     ON DELETE CASCADE
@@ -58,16 +60,16 @@ CREATE TABLE IF NOT EXISTS public_organizations(
   public_organization_id bigint AUTO_INCREMENT primary key,
   public_organization_title LONGTEXT NOT NULL);
 
-CREATE TABLE IF NOT EXISTS public_org__union_members (
+CREATE TABLE IF NOT EXISTS public_org_union_members (
   id bigint AUTO_INCREMENT primary key,
   public_organization_id bigint NOT NULL,
   union_member_id bigint NOT NULL,
-  CONSTRAINT public_org__union_members_union_members
+  CONSTRAINT public_org_union_members_union_members
     FOREIGN KEY (union_member_id)
     REFERENCES union_members (union_member_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT public_org__union_members_public_organizations
+  CONSTRAINT public_org_union_members_public_organizations
     FOREIGN KEY (public_organization_id)
     REFERENCES public_organizations (public_organization_id)
     ON DELETE CASCADE

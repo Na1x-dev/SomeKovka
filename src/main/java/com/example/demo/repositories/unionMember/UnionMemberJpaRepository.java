@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UnionMemberJpaRepository extends JpaRepository<UnionMember, Long> {
+    UnionMember getByUnionMemberId(Long unionMemberId);
 }

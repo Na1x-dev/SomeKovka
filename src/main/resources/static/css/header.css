@@ -1,20 +1,24 @@
-.header{
-    /*height: 100px;*/
-    width: 100%;
-    background-color: white;
-    border-bottom: 1px solid #333333;
+#header{
+    color: #777333;
+    background-color: #333333;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 400px;
 }
 
 .header-button{
+    padding: 5px;
     font-size: 25px;
-    padding: 20px;
     text-decoration: none;
-    color: #333333;
+    color: #dddddd;
+    margin: 5px;
+    border-radius: 5px;
 }
 
 .header-button:hover{
-    background-color: #eeeeee;
+    background-color: #444444;
+
 }

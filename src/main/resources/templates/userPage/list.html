@@ -1,6 +1,35 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-    <a class="to-new-user-button to-something-new-button" href="../newUserPage/index.html"
-       th:href="@{../../newUserPage/index}">Новый сотрудник</a>
+<!--    <a class="to-new-user-button to-something-new-button" href="../newUserPage/index.html"-->
+<!--       th:href="@{../../newUserPage/index}">Новый сотрудник</a>-->
+
+    <div class="to-something-new-button">
+        <dialog id="add-dialog" class="add-dialog dialog">
+            <form th:fragment="new-user-form" class="new-user-container"
+                  th:action="@{/userPage/index/add}" method="post">
+                <div class="some-text" th:text="'Новый пользователь'">
+                </div>
+                <div class="new-user-inputs new-inputs">
+                    <input type="text" class="username-input new-user-input" placeholder="Имя пользователя"
+                           autofocus required="required" th:field="${newUser.username}"/>
+                    <input type="text" class="password-input new-user-input" placeholder="Пароль"
+                           autofocus required="required" th:field="${newUser.password}"/>
+                </div>
+                <div class="bottom-new-user-buttons">
+                    <button type="submit" class="confirm-add-new-user-button dialog-button">Добавить</button>
+                    <button type="button" class="close-add-dialog dialog-button">Отмена</button>
+                </div>
+            </form>
+        </dialog>
+        <a class="new-user-add-button open-add-dialog open-dialog" th:onclick="
+                            let divParent = this.closest('div');
+                            let dialogCloseButton = divParent.querySelector('.new-user-container').querySelector('.bottom-new-user-buttons').querySelector('.close-add-dialog');
+                            let addDialog = divParent.querySelector('#add-dialog');
+                            addDialog.show();
+                            dialogCloseButton.onclick = function(){
+                            addDialog.close();}">Добавить пользователя
+        </a>
+    </div>
+
     <table class="table">
         <thead>
         <tr>

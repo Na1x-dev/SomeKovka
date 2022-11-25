@@ -4,24 +4,24 @@
     <table class="table">
         <thead>
         <tr>
-            <th style="width: 5%">id</th>
-            <th style="width: 20%">Сумма</th>
-            <th style="width: 20%">Основание выплаты</th>
+            <th style="width: 10%">id</th>
+            <th style="width: 30%">Сумма</th>
+            <th style="width: 60%">Основание выплаты</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="i : ${#numbers.sequence(materialPayments.size() - 1, 0, -1)}" th:with="materialPayment=${materialPayments[i]}" class="table-row">
 
             <td style="text-align: center">
-                <div class="unionMember-id" th:text="${materialPayment.materialPaymentId}">
+                <div class="table-cell" th:text="${materialPayment.materialPaymentId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-name" th:text="${materialPayment.paymentAmount}">
+                <div class="table-cell" th:text="${materialPayment.paymentAmount}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="unionMember-name" th:text="${materialPayment.groundForFinPayment.groundText}">
+                <div class="table-cell" th:text="${materialPayment.groundForFinPayment.groundText}">
                 </div>
             </td>
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->

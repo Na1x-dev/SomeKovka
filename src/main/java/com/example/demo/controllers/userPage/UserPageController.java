@@ -1,6 +1,7 @@
 package com.example.demo.controllers.userPage;
 
 import com.example.demo.controllers.user.UserValidator;
+import com.example.demo.models.UnionMember;
 import com.example.demo.models.User;
 import com.example.demo.security.SecurityService;
 import com.example.demo.services.user.UserService;
@@ -26,8 +27,21 @@ public class UserPageController {
     public String userPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("users", userService.readAll());
+        model.addAttribute("newUser", new User());
         model.addAttribute("updateUser", new User());
         return "userPage/index";
+    }
+
+    @PostMapping("/userPage/index/add")
+    public String userPageAdd(Model model, @ModelAttribute("newUser") User newUser, BindingResult bindingResult, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        newUser.setPasswordConfirm(newUser.getPassword());
+        userValidator.validate(newUser, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "newUserPage/index";
+        }
+        userService.create(newUser);
+        return "redirect:/userPage/index";
     }
 
     @GetMapping({"/newUserPage/index"})
