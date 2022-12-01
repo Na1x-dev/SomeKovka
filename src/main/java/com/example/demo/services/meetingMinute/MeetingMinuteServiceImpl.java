@@ -23,4 +23,22 @@ public class MeetingMinuteServiceImpl implements MeetingMinuteService {
         return meetingMinuteJpaRepository.findAll();
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (meetingMinuteJpaRepository.existsById(id)) {
+            meetingMinuteJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, MeetingMinute meetingMinute) {
+        if (meetingMinuteJpaRepository.existsById(id)) {
+            meetingMinute.setMeetingMinuteId(id);
+            meetingMinuteJpaRepository.save(meetingMinute);
+            return true;
+        }
+        return false;
+    }
 }

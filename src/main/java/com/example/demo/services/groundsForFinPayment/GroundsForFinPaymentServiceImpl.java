@@ -28,5 +28,24 @@ public class GroundsForFinPaymentServiceImpl implements GroundsForFinPaymentServ
         return groundsForFinPaymentJpaRepository.getByGroundId(groundId);
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (groundsForFinPaymentJpaRepository.existsById(id)) {
+            groundsForFinPaymentJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, GroundsForFinPayment groundsForFinPayment) {
+        if (groundsForFinPaymentJpaRepository.existsById(id)) {
+            groundsForFinPayment.setGroundId(id);
+            groundsForFinPaymentJpaRepository.save(groundsForFinPayment);
+            return true;
+        }
+        return false;
+    }
+
 
 }

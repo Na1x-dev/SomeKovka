@@ -24,7 +24,7 @@ public class ApplicationType {
     String applicationTypeTitle;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "applicationType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "applicationType")
     @ToString.Exclude
     List<Application> applications;
 

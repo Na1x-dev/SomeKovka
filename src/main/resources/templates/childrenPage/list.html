@@ -15,11 +15,17 @@
                            autofocus required="required" th:field="${newChild.patronymic}"/>
                     <input type="date" class="birthdate-input new-child-input" placeholder="Дата рождения"
                            autofocus="true" required="required" th:field="${newChild.birthdate}"/>
-                    <select name="gender" th:field="${newChild.gender.genderId}" >
+                    <select name="gender" th:field="${newChild.gender.genderId}">
+                        <option disabled value="">Выберите пол</option>
                         <option th:each="gender : ${genders}" th:value="${gender.genderId}" th:utext="${gender.genderTitle}"></option>
                     </select>
 
-                    <select name="unionMember" th:field="${newChild.childId}">
+                    <select name="unionMember1" th:field="${newChild.unionMembers[0].unionMemberId}">
+                        <option disabled value="">Выберите первого родителя</option>
+                        <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                    </select>
+                    <select name="unionMember2" th:field="${newChild.unionMembers[1].unionMemberId}">
+                        <option disabled value="">Выберите второго родителя</option>
                         <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
                 </div>
@@ -44,13 +50,13 @@
                 <thead>
                 <tr>
                     <th style="width: 5%">id род.</th>
-                    <th style="width: 15%">Фамилия род.</th>
+                    <th style="width: 10%">Фамилия род.</th>
                     <th style="width: 10%">Имя род.</th>
-                    <th style="width: 15%">Отчество род.</th>
-                    <th style="width: 5%">id род.</th>
-                    <th style="width: 15%">Фамилия реб.</th>
+                    <th style="width: 10%">Отчество род.</th>
+                    <th style="width: 5%">id реб.</th>
+                    <th style="width: 10%">Фамилия реб.</th>
                     <th style="width: 10%">Имя реб.</th>
-                    <th style="width: 15%">Отчество реб.</th>
+                    <th style="width: 10%">Отчество реб.</th>
                     <th style="width: 10%">Дата рождения</th>
                 </tr>
                 </thead>
@@ -95,6 +101,79 @@
                         </div>
                     </td>
 
+                    <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                        <div class="table-cell">
+                            <dialog id="update-dialog" class="update-dialog dialog">
+                                <form th:fragment="update-child-form" class="update-child-container"
+                                      th:action="@{'/childrenPage/index/update/'+${parentChild.child.childId}}" method="post">
+                                    <div class="some-text" th:text="'Изменение ребенка'">
+                                    </div>
+                                    <div class="update-child-inputs update-inputs">
+                                        <input type="text" class="surname-input update-child-input" placeholder="Фамилия"
+                                               autofocus required="required" th:value="${parentChild.child.surname}" th:name="surname"/>
+                                        <input type="text" class="name-input update-child-input" placeholder="Имя"
+                                               autofocus required="required" th:value="${parentChild.child.name}" th:name="name"/>
+                                        <input type="text" class="patronymic-input update-child-input" placeholder="Отчество"
+                                               autofocus required="required" th:value="${parentChild.child.patronymic}" th:name="patronymic"/>
+                                        <input type="date" class="birthdate-input update-child-input"
+                                               placeholder="Дата рождения"
+                                               autofocus="true" required="required" th:value="${parentChild.child.birthdate}" th:name="birthdate"/>
+                                        <select name="gender" th:value="${parentChild.child.gender.genderId}" th:name="gender.genderId">
+                                            <option disabled value="">Выберите пол</option>
+                                            <option th:each="gender : ${genders}" th:value="${gender.genderId}"
+                                                    th:utext="${gender.genderTitle}"></option>
+                                        </select>
+
+                                        <select name="unionMember1" th:field="${updateChild.unionMembers[0].unionMemberId}">
+                                            <option disabled value="">Выберите первого родителя</option>
+                                            <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                                        </select>
+                                        <select name="unionMember2" th:field="${updateChild.unionMembers[1].unionMemberId}">
+                                            <option disabled value="">Выберите второго родителя</option>
+                                            <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                                        </select>
+
+                                    </div>
+                                    <div class="bottom-update-child-buttons">
+                                        <button type="submit" class="confirm-update-child-button dialog-button">Изменить
+                                        </button>
+                                        <button type="button" class="close-update-dialog dialog-button">Отмена</button>
+                                    </div>
+                                </form>
+
+                            </dialog>
+                            <a class="child-update-button open-update-dialog open-dialog" th:onclick="
+                                let tdParent = this.closest('td');
+                                let dialogCloseButton = tdParent.querySelector('.update-child-container').querySelector('.bottom-update-child-buttons').querySelector('.close-update-dialog');
+                                let updateDialog = tdParent.querySelector('#update-dialog');
+                                updateDialog.show();
+                                dialogCloseButton.onclick = function(){
+                                updateDialog.close();}">Изменить
+                            </a>
+                        </div>
+                    </td>
+
+                    <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                        <div class="table-cell">
+                            <dialog id="delete-dialog" class="delete-dialog dialog">
+                                <div class="some-text"
+                                     th:text="'Вы действительно хотите удалить ребенка с id ' + ${parentChild.child.childId} + '?'">
+                                    Удаление
+                                </div>
+                                <a class="dialog-button" id="confirm-delete-child-button"
+                                   th:href="@{'/childrenPage/index/delete/'+${parentChild.child.childId}}">Да</a>
+                                <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
+                            </dialog>
+                            <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
+                            <a class="child-delete-button open-delete-dialog open-dialog" th:onclick="
+                                    let tdParent = this.closest('td');
+                                    let deleteDialog = tdParent.querySelector('#delete-dialog');
+                                    deleteDialog.show();
+                                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){
+                                    deleteDialog.close();}">Удалить
+                            </a>
+                        </div>
+                    </td>
 <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
 <!--                <dialog id="update-dialog" class="update-dialog dialog">-->
 <!--                    <form th:fragment="unionMember-form" class="unionMember-container"-->

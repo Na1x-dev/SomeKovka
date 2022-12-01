@@ -14,7 +14,7 @@
     max-width:500px;
 }
 
-.new-inputs{
+.new-inputs, .update-inputs, .delete-inputs{
     display:flex;
     flex-direction: column;
     margin-bottom: 10px;
@@ -43,7 +43,21 @@ select, input{
     padding: 10px;
 }
 
-.dialog-button:hover{
-background-color:#555555;
-cursor: pointer;
+.dialog-button:hover, .open-dialog:hover{
+    background-color:#555555;
+    cursor: pointer;
 }
+
+.some-text{
+    text-align: center;
+    margin: 20px;
+}
+
+.open-dialog{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+

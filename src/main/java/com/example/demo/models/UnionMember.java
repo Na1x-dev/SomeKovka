@@ -88,7 +88,9 @@ public class UnionMember {
     }
 
     public String getIdAndName() {
-        return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+        if (!surname.equals("") || !name.equals("") || !patronymic.equals(""))
+            return unionMemberId + ". " + surname + " " + name.charAt(0) + "." + patronymic.charAt(0) + ".";
+        return "";
     }
 
     public String getDateInNormalFormat() {
@@ -103,11 +105,6 @@ public class UnionMember {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-                ", birthdate=" + birthdate +
-                ", gender=" + gender.genderTitle +
-                ", position=" + position.positionTitle +
-                ", children=" + children +
-                ", phoneNumber=" + phoneNumbers.get(0).phoneNumber +
                 '}';
     }
 }

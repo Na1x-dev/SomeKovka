@@ -10,4 +10,7 @@ public interface MaterialPaymentService {
 
     List<MaterialPayment> readAll();
 
+    boolean delete(Long id);
+
+    boolean update(Long id, MaterialPayment materialPayment);
 }

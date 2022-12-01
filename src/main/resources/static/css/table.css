@@ -12,7 +12,7 @@
     }
 
 th, td{
-    padding: 10px;
+
 }
 
 td > div, td, td > a{
@@ -55,6 +55,11 @@ td > div, td, td > a{
 white-space:nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
+width: 100%;
+height: 100%;
+display: block;
+text-align: center;
+padding: 10px;
 }
 
 

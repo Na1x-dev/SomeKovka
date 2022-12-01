@@ -24,7 +24,7 @@ public class GroundsForFinPayment {
     String groundText;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "groundsForFinPayment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "groundsForFinPayment")
     @ToString.Exclude
     List<MaterialPayment> materialPayments;
 

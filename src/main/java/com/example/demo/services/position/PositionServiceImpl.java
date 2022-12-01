@@ -28,4 +28,33 @@ public class PositionServiceImpl implements PositionService {
     public Position readById(Long positionId) {
         return positionJpaRepository.getByPositionId(positionId);
     }
+
+    @Override
+    public Position readByTitle(String title) {
+        return positionJpaRepository.getByPositionTitle(title);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (positionJpaRepository.existsById(id)) {
+            positionJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, Position position) {
+        if (positionJpaRepository.existsById(id)) {
+            position.setPositionId(id);
+            positionJpaRepository.save(position);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Position readByPositionTitle(String title) {
+        return positionJpaRepository.readByPositionTitle(title);
+    }
 }

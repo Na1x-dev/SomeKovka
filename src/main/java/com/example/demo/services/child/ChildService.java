@@ -10,4 +10,7 @@ public interface ChildService {
 
     List<Child> readAll();
 
+    boolean delete(Long id);
+
+    boolean update(Long id, Child child);
 }

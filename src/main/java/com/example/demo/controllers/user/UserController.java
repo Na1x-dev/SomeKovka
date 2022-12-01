@@ -1,13 +1,14 @@
 package com.example.demo.controllers.user;
 
-import com.example.demo.models.Gender;
-import com.example.demo.models.Role;
-import com.example.demo.models.User;
+import com.example.demo.models.*;
 import com.example.demo.security.SecurityService;
 
 
 import com.example.demo.services.gender.GenderService;
+import com.example.demo.services.phoneNumber.PhoneNumberService;
+import com.example.demo.services.position.PositionService;
 import com.example.demo.services.role.RoleService;
+import com.example.demo.services.unionMember.UnionMemberService;
 import com.example.demo.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,6 +33,15 @@ public class UserController {
 
     @Autowired
     private GenderService genderService;
+
+    @Autowired
+    private UnionMemberService unionMemberService;
+
+    @Autowired
+    private PhoneNumberService phoneNumberService;
+
+    @Autowired
+    private PositionService positionService;
 
     @GetMapping("/signUpPage/index")
     public String registration(Model model) {
@@ -59,6 +69,8 @@ public class UserController {
         autoCreateRoles();
         autoRegisterAdmin();
         autoCreateGenders();
+        autoCreateEmptyPosition();
+        autoCreateEmptyParent();
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -107,6 +119,30 @@ public class UserController {
         if (genderService.readByGenderTitle("Женский") == null) {
             Gender gender = new Gender("Женский");
             genderService.create(gender);
+        }
+    }
+
+    public void autoCreateEmptyPosition() {
+        if (positionService.readByTitle("") == null) {
+            positionService.create(new Position());
+        }
+    }
+
+    public void autoCreateEmptyParent() {
+        if (unionMemberService.readByName("") == null) {
+            UnionMember unionMember = new UnionMember();
+            unionMember.getPhoneNumbers().get(0).setUnionMember(unionMember);
+            unionMember.setGender(genderService.readByGenderTitle("Мужской"));
+            unionMember.setPosition(positionService.readByTitle(""));
+            System.out.println(unionMember);
+            unionMemberService.create(unionMember);
+            phoneNumberService.create(unionMember.getPhoneNumbers().get(0));
+        }
+    }
+
+    public void autoCreatePhoneNumber() {
+        if (phoneNumberService.readById(0L) == null) {
+
         }
     }
 }

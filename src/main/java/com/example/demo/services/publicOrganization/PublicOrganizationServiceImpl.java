@@ -23,4 +23,22 @@ public class PublicOrganizationServiceImpl implements PublicOrganizationService 
         return publicOrganizationJpaRepository.findAll();
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (publicOrganizationJpaRepository.existsById(id)) {
+            publicOrganizationJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, PublicOrganization publicOrganization) {
+        if (publicOrganizationJpaRepository.existsById(id)) {
+            publicOrganization.setPublicOrganizationId(id);
+            publicOrganizationJpaRepository.save(publicOrganization);
+            return true;
+        }
+        return false;
+    }
 }

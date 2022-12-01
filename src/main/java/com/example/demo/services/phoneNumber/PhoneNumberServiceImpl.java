@@ -23,5 +23,10 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         return phoneNumberJpaRepository.findAll();
     }
 
-  
+    @Override
+    public PhoneNumber readById(Long id) {
+        return phoneNumberJpaRepository.getByPhoneNumberId(id);
+    }
+
+
 }

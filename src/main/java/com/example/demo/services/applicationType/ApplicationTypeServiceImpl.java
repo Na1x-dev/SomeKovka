@@ -24,4 +24,23 @@ public class ApplicationTypeServiceImpl implements ApplicationTypeService {
         return applicationTypeJpaRepository.findAll();
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (applicationTypeJpaRepository.existsById(id)) {
+            applicationTypeJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, ApplicationType applicationType) {
+        if (applicationTypeJpaRepository.existsById(id)) {
+            applicationType.setApplicationTypeId(id);
+            applicationTypeJpaRepository.save(applicationType);
+            return true;
+        }
+        return false;
+    }
+
 }

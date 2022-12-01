@@ -25,10 +25,11 @@ public class Position {
     String positionTitle;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "position")
     @ToString.Exclude
     List<UnionMember> unionMembers;
 
     public Position(){
+        positionTitle = "";
     }
 }

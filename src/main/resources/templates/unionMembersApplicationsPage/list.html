@@ -7,17 +7,21 @@
                 </div>
                 <div class="new-application-inputs new-inputs">
                     <select name="unionMember" th:field="${newApplication.unionMember.unionMemberId}">
+                        <option disabled value="">Выберите сотрудника</option>
                         <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
                     <input type="date" class="new-application-input" placeholder="Дата заявления"
                            autofocus="true" required="required" th:field="${newApplication.registerDate}"/>
                     <select name="applicationType" th:field="${newApplication.applicationType.applicationTypeId}">
+                        <option disabled value="">Выберите тип заявления</option>
                         <option th:each="applicationType : ${applicationTypes}" th:value="${applicationType.applicationTypeId}" th:utext="${applicationType.applicationTypeTitle}"></option>
                     </select>
                     <select name="materialPayment" th:field="${newApplication.materialPayment.materialPaymentId}">
+                        <option disabled value="">Выберите размер оплаты</option>
                         <option th:each="materialPayment : ${materialPayments}" th:value="${materialPayment.materialPaymentId}" th:utext="${materialPayment.getAmountAndGround()}"></option>
                     </select>
                     <select name="meetingMinute" th:field="${newApplication.meetingMinute.meetingMinuteId}">
+                        <option disabled value="">Выберите протокол заседания</option>
                         <option th:each="meetingMinute : ${meetingMinutes}" th:value="${meetingMinute.meetingMinuteId}" th:utext="${meetingMinute.meetingMinuteNumber}"></option>
                     </select>
                 </div>

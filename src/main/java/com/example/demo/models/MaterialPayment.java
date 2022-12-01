@@ -30,7 +30,7 @@ public class MaterialPayment {
     GroundsForFinPayment groundsForFinPayment;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "materialPayment", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "materialPayment")
     @ToString.Exclude
     List<Application> applications;
 

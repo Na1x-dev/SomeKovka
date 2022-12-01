@@ -37,7 +37,7 @@ public class MeetingMinute {
     String meetingMinuteTheme;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "meetingMinute", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "meetingMinute")
     @ToString.Exclude
     List<Application> applications;
 

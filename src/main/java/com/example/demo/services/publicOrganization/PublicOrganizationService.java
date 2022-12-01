@@ -10,4 +10,7 @@ public interface PublicOrganizationService {
     List<PublicOrganization> readAll();
 
 
+    boolean delete(Long id);
+
+    boolean update(Long id, PublicOrganization publicOrganization);
 }

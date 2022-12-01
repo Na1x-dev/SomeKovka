@@ -30,7 +30,7 @@
         <thead>
         <tr>
             <th style="width: 10%">id</th>
-            <th style="width: 90%">Общественная организация</th>
+            <th style="width: 70%">Общественная организация</th>
         </tr>
         </thead>
         <tbody>
@@ -41,6 +41,61 @@
             </td>
             <td style="text-align: center">
                 <div class="table-cell" th:text="${publicOrganization.publicOrganizationTitle}">
+                </div>
+            </td>
+
+
+
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="update-dialog" class="update-dialog dialog">
+                        <form th:fragment="update-public-organization-form" class="update-public-organization-container"
+                              th:action="@{'/publicOrganizationsPage/index/update/'+${publicOrganization.publicOrganizationId}}" method="post">
+                            <div class="some-text" th:text="'Изменение общественной организации'">
+                            </div>
+                            <div class="update-public-organization-inputs update-inputs">
+                                <input type="text" class="title-input new-public-organization-input" placeholder="Название организации"
+                                       autofocus required="required" th:value="${publicOrganization.publicOrganizationTitle}" name="publicOrganizationTitle"/>
+                            </div>
+                            <div class="bottom-update-public-organization-buttons">
+                                <button type="submit" class="confirm-update-public-organization-button dialog-button">Изменить
+                                </button>
+                                <button type="button" class="close-update-dialog dialog-button">Отмена</button>
+                            </div>
+                        </form>
+
+                    </dialog>
+                    <a class="public-organization-update-button open-update-dialog open-dialog" th:onclick="
+                                let tdParent = this.closest('td');
+                                let dialogCloseButton = tdParent.querySelector('.update-public-organization-container').querySelector('.bottom-update-public-organization-buttons').querySelector('.close-update-dialog');
+                                let updateDialog = tdParent.querySelector('#update-dialog');
+                                updateDialog.show();
+                                dialogCloseButton.onclick = function(){
+                                updateDialog.close();}">Изменить
+                    </a>
+                </div>
+            </td>
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="delete-dialog" class="delete-dialog dialog">
+                        <div class="some-text"
+                             th:text="'Вы действительно хотите удалить общественную организацию с id ' + ${publicOrganization.publicOrganizationId} + '?'">
+                            Удаление
+                        </div>
+                        <a class="dialog-button" id="confirm-delete-public-organization-button"
+                           th:href="@{'/publicOrganizationsPage/index/delete/'+${publicOrganization.publicOrganizationId}}">Да</a>
+                        <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
+                    </dialog>
+                    <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
+                    <a class="public-organization-delete-button open-delete-dialog open-dialog" th:onclick="
+                                    let tdParent = this.closest('td');
+                                    let deleteDialog = tdParent.querySelector('#delete-dialog');
+                                    deleteDialog.show();
+                                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){
+                                    deleteDialog.close();}">Удалить
+                    </a>
                 </div>
             </td>
 

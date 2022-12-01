@@ -13,4 +13,10 @@ public interface UnionMemberService {
 
 
      boolean update(Long id, UnionMember unionMember);
+
+    UnionMember readByName(String name);
+
+    boolean delete(Long id);
+
+
 }

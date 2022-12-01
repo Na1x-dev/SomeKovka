@@ -10,4 +10,7 @@ public interface ApplicationTypeService {
     List<ApplicationType> readAll();
 
 
+    boolean delete(Long id);
+
+    boolean update(Long id, ApplicationType applicationType);
 }

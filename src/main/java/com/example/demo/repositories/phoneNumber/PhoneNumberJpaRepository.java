@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PhoneNumberJpaRepository extends JpaRepository<PhoneNumber, Long> {
 
+    PhoneNumber getByPhoneNumberId(Long id);
 }

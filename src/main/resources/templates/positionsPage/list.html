@@ -28,7 +28,7 @@
         <thead>
         <tr>
             <th style="width: 10%">id</th>
-            <th style="width: 90%">Должность</th>
+            <th style="width: 70%">Должность</th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +40,60 @@
             </td>
             <td style="text-align: center">
                 <div class="table-cell" th:text="${position.positionTitle}">
+                </div>
+            </td>
+
+
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="update-dialog" class="update-dialog dialog">
+                        <form th:fragment="update-position-form" class="update-position-container"
+                              th:action="@{'/positionsPage/index/update/'+${position.positionId}}" method="post">
+                            <div class="some-text" th:text="'Изменение должности'">
+                            </div>
+                            <div class="update-position-inputs update-inputs">
+                                <input type="text" class="title-input update-position-input" placeholder="Название должности"
+                                       autofocus required="required" th:value="${position.positionTitle}" name="positionTitle"/>
+                            </div>
+                            <div class="bottom-update-position-buttons">
+                                <button type="submit" class="confirm-update-position-button dialog-button">Изменить
+                                </button>
+                                <button type="button" class="close-update-dialog dialog-button">Отмена</button>
+                            </div>
+                        </form>
+
+                    </dialog>
+                    <a class="position-update-button open-update-dialog open-dialog" th:onclick="
+                                let tdParent = this.closest('td');
+                                let dialogCloseButton = tdParent.querySelector('.update-position-container').querySelector('.bottom-update-position-buttons').querySelector('.close-update-dialog');
+                                let updateDialog = tdParent.querySelector('#update-dialog');
+                                updateDialog.show();
+                                dialogCloseButton.onclick = function(){
+                                updateDialog.close();}">Изменить
+                    </a>
+                </div>
+            </td>
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="delete-dialog" class="delete-dialog dialog">
+                        <div class="some-text"
+                             th:text="'Вы действительно хотите удалить должность с id ' + ${position.positionId} + '?'">
+                            Удаление
+                        </div>
+                        <a class="dialog-button" id="confirm-delete-position-button"
+                           th:href="@{'/positionsPage/index/delete/'+${position.positionId}}">Да</a>
+                        <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
+                    </dialog>
+                    <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
+                    <a class="position-delete-button open-delete-dialog open-dialog" th:onclick="
+                                    let tdParent = this.closest('td');
+                                    let deleteDialog = tdParent.querySelector('#delete-dialog');
+                                    deleteDialog.show();
+                                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){
+                                    deleteDialog.close();}">Удалить
+                    </a>
                 </div>
             </td>
 

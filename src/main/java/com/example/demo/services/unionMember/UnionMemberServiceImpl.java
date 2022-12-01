@@ -37,4 +37,18 @@ public class UnionMemberServiceImpl implements UnionMemberService {
         }
         return false;
     }
+
+    @Override
+    public UnionMember readByName(String name) {
+        return unionMemberJpaRepository.getByName(name);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if (unionMemberJpaRepository.existsById(id)) {
+            unionMemberJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

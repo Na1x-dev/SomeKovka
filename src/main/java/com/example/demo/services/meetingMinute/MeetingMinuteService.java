@@ -10,4 +10,7 @@ public interface MeetingMinuteService {
     List<MeetingMinute> readAll();
 
 
+    boolean delete(Long id);
+
+    boolean update(Long id, MeetingMinute meetingMinute);
 }

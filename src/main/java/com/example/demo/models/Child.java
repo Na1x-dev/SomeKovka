@@ -76,5 +76,18 @@ public class Child {
         birthdate = new Date();
         gender = new Gender();
         unionMembers = new HashSet<>();
+        unionMembers.add(new UnionMember());
+        unionMembers.add(new UnionMember());
     }
+
+    @Override
+    public String toString() {
+        return "Child{" +
+                "childId=" + childId +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                '}';
+    }
+
 }

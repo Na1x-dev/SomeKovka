@@ -12,4 +12,8 @@ public interface GroundsForFinPaymentService {
 
 
     GroundsForFinPayment readById(Long groundId);
+
+    boolean delete(Long id);
+
+    boolean update(Long id, GroundsForFinPayment groundsForFinPayment);
 }

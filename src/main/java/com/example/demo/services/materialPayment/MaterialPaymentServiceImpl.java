@@ -22,4 +22,23 @@ public class MaterialPaymentServiceImpl implements MaterialPaymentService {
     public List<MaterialPayment> readAll() {
         return materialPaymentJpaRepository.findAll();
     }
+
+    @Override
+    public boolean delete(Long id) {
+        if (materialPaymentJpaRepository.existsById(id)) {
+            materialPaymentJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, MaterialPayment materialPayment) {
+        if (materialPaymentJpaRepository.existsById(id)) {
+            materialPayment.setMaterialPaymentId(id);
+            materialPaymentJpaRepository.save(materialPayment);
+            return true;
+        }
+        return false;
+    }
 }

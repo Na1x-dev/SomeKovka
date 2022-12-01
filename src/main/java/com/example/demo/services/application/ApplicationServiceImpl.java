@@ -22,5 +22,24 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<Application> readAll() {
         return applicationJpaRepository.findAll();
     }
+
+    @Override
+    public boolean delete(Long id) {
+        if (applicationJpaRepository.existsById(id)) {
+            applicationJpaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Long id, Application application) {
+        if (applicationJpaRepository.existsById(id)) {
+            application.setApplicationId(id);
+            applicationJpaRepository.save(application);
+            return true;
+        }
+        return false;
+    }
     
 }
