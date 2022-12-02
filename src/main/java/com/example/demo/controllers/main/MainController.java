@@ -160,12 +160,15 @@ public class MainController {
         return "redirect:/unionMemPubOrgPage/index";
     }
 
-//    @GetMapping("/unionMemPubOrgPage/index/delete/{id}")
-//    public String unionMemPubOrgPageDelete(Model model, Principal user, @PathVariable("id") Long childId) {
-//        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-//        childService.delete(childId);
-//        return "redirect:/childrenPage/index";
-//    }
+    @GetMapping("/unionMemPubOrgPage/index/delete/{unionMemberId}/{publicOrganizationId}")
+    public String unionMemPubOrgPageDelete(Model model, Principal user, @PathVariable("unionMemberId") Long unionMemberId, @PathVariable("publicOrganizationId") Long publicOrganizationId) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        UnionMember unionMember = unionMemberService.readById(unionMemberId);
+        PublicOrganization publicOrganization = publicOrganizationService.readById(publicOrganizationId);
+        unionMember.getPublicOrganizations().remove(publicOrganization);
+        unionMemberService.update(unionMemberId, unionMember);
+        return "redirect:/unionMemPubOrgPage/index";
+    }
 
     @GetMapping({"/publicOrganizationsPage/index"})
     public String publicOrganizationsPage(Model model, Principal user) {

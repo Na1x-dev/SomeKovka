@@ -53,7 +53,7 @@ public class Application {
     }
 
     public String getDateInNormalFormat() {
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return format.format(registerDate);
     }
 }

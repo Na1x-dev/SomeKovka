@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PublicOrganizationJpaRepository extends JpaRepository<PublicOrganization, Long> {
 
+    PublicOrganization getByPublicOrganizationId(Long id);
 }

@@ -13,4 +13,6 @@ public interface PublicOrganizationService {
     boolean delete(Long id);
 
     boolean update(Long id, PublicOrganization publicOrganization);
+
+    PublicOrganization readById(Long id);
 }

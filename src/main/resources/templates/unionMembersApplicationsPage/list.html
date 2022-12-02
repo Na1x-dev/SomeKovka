@@ -45,14 +45,14 @@
         <thead>
         <tr>
             <th style="width: 5%">id заявления</th>
-            <th style="width: 15%">Фамилия</th>
+            <th style="width: 10%">Фамилия</th>
             <th style="width: 10%">Имя</th>
-            <th style="width: 15%">Отчество</th>
+            <th style="width: 10%">Отчество</th>
             <th style="width: 10%">Дата регистрации</th>
             <th style="width: 10%">Тип заявления</th>
             <th style="width: 10%">Номер протокола</th>
             <th style="width: 10%">Сумма</th>
-            <th style="width: 15%">Основание</th>
+            <th style="width: 10%">Основание</th>
 
         </tr>
         </thead>
@@ -97,6 +97,75 @@
                 </div>
             </td>
 
+
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="update-dialog" class="update-dialog dialog">
+                        <form th:fragment="update-application-form" class="update-application-container"
+                              th:action="@{'/unionMembersApplicationsPage/index/update/'+${applicat.applicationId}}" method="post">
+                            <div class="some-text" th:text="'Изменение заявления'">
+                            </div>
+                            <div class="update-application-inputs update-inputs">
+                                <select th:value="${applicat.unionMember.unionMemberId}" name="unionMember.unionMemberId">
+                                    <option disabled value="">Выберите сотрудника</option>
+                                    <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                                </select>
+                                <input type="date" class="update-application-input" placeholder="Дата заявления"
+                                       autofocus="true" required="required" th:value="${applicat.registerDate}" name="registerDate"/>
+                                <select th:value="${applicat.applicationType.applicationTypeId}" name="applicationType.applicationTypeId">
+                                    <option disabled value="">Выберите тип заявления</option>
+                                    <option th:each="applicationType : ${applicationTypes}" th:value="${applicationType.applicationTypeId}" th:utext="${applicationType.applicationTypeTitle}"></option>
+                                </select>
+                                <select th:value="${applicat.materialPayment.materialPaymentId}" name="materialPayment.materialPaymentId">
+                                    <option disabled value="">Выберите размер оплаты</option>
+                                    <option th:each="materialPayment : ${materialPayments}" th:value="${materialPayment.materialPaymentId}" th:utext="${materialPayment.getAmountAndGround()}"></option>
+                                </select>
+                                <select th:value="${applicat.meetingMinute.meetingMinuteId}" name="meetingMinute.meetingMinuteId">
+                                    <option disabled value="">Выберите протокол заседания</option>
+                                    <option th:each="meetingMinute : ${meetingMinutes}" th:value="${meetingMinute.meetingMinuteId}" th:utext="${meetingMinute.meetingMinuteNumber}"></option>
+                                </select>
+                            </div>
+                            <div class="bottom-update-application-buttons">
+                                <button type="submit" class="confirm-update-application-button dialog-button">Изменить
+                                </button>
+                                <button type="button" class="close-update-dialog dialog-button">Отмена</button>
+                            </div>
+                        </form>
+
+                    </dialog>
+                    <a class="application-update-button open-update-dialog open-dialog" th:onclick="
+                                let tdParent = this.closest('td');
+                                let dialogCloseButton = tdParent.querySelector('.update-application-container').querySelector('.bottom-update-application-buttons').querySelector('.close-update-dialog');
+                                let updateDialog = tdParent.querySelector('#update-dialog');
+                                updateDialog.show();
+                                dialogCloseButton.onclick = function(){
+                                updateDialog.close();}">Изменить
+                    </a>
+                </div>
+            </td>
+
+            <td style="text-align: center" th:if="${checkUser.isAdmin()}">
+                <div class="table-cell">
+                    <dialog id="delete-dialog" class="delete-dialog dialog">
+                        <div class="some-text"
+                             th:text="'Вы действительно хотите удалить тип заявления с id ' + ${applicat.applicationId} + '?'">
+                            Удаление
+                        </div>
+                        <a class="dialog-button" id="confirm-delete-application-button"
+                           th:href="@{'/unionMembersApplicationsPage/index/delete/'+${applicat.applicationId}}">Да</a>
+                        <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
+                    </dialog>
+                    <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
+                    <a class="application-delete-button open-delete-dialog open-dialog" th:onclick="
+                                    let tdParent = this.closest('td');
+                                    let deleteDialog = tdParent.querySelector('#delete-dialog');
+                                    deleteDialog.show();
+                                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){
+                                    deleteDialog.close();}">Удалить
+                    </a>
+                </div>
+            </td>
             <!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
             <!--                <dialog id="update-dialog" class="update-dialog dialog">-->
             <!--                    <form th:fragment="unionMember-form" class="unionMember-container"-->

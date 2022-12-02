@@ -41,4 +41,9 @@ public class PublicOrganizationServiceImpl implements PublicOrganizationService 
         }
         return false;
     }
+
+    @Override
+    public PublicOrganization readById(Long id) {
+        return publicOrganizationJpaRepository.getByPublicOrganizationId(id);
+    }
 }
