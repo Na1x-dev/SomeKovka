@@ -21,7 +21,7 @@
     width: 100%;
     background-color: #444444;
     border: 0;
-    font-size: 20px;
+    font-size: 15px;
     padding: 10px;
     outline: none;
     resize: vertical;
@@ -35,7 +35,7 @@
     color: #dddddd;
     background-color: #444444;
     border: 0;
-    font-size: 20px;
+    font-size: 15px;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -49,3 +49,6 @@
 .sql-output:hover{
     cursor: default;
 }
+
+.table-cell{
+padding: 10px;}

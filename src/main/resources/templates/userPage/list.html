@@ -1,6 +1,6 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
-<!--    <a class="to-new-user-button to-something-new-button" href="../newUserPage/index.html"-->
-<!--       th:href="@{../../newUserPage/index}">Новый сотрудник</a>-->
+    <!--    <a class="to-new-user-button to-something-new-button" href="../newUserPage/index.html"-->
+    <!--       th:href="@{../../newUserPage/index}">Новый сотрудник</a>-->
 
     <div class="to-something-new-button">
         <dialog id="add-dialog" class="add-dialog dialog">
@@ -34,30 +34,33 @@
         <thead>
         <tr>
             <th style="width: 10%">id</th>
-            <th style="width: 70%">Имя пользователя</th>
+            <th style="width: 65%">Имя пользователя</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}" class="table-row">
             <td style="text-align: center">
-                <div class="user-id" th:text="${user.userId}">
+                <div class="user-id table-cell" th:text="${user.userId}">
                 </div>
             </td>
             <td style="text-align: center">
-                <div class="user-username" th:text="${user.username}">
+                <div class="user-username table-cell" th:text="${user.username}">
                 </div>
             </td>
 
             <td style="text-align: center">
                 <dialog id="update-dialog" class="update-dialog dialog">
-                    <form th:fragment="user-form" class="user-container" th:action="@{'/userPage/index/update/'+${user.userId}}" method="post">
+                    <form th:fragment="user-form" class="user-container"
+                          th:action="@{'/userPage/index/update/'+${user.userId}}" method="post">
                         <div class="some-text" th:text="'Изменение данных ' + ${user.username}">
                             Изменение
                         </div>
-                        <input type="text" name="username" class="user-input" placeholder="Имя пользователя"
-                               autofocus="true" required="required" th:value="${user.username}" th:name="username"/>
-                        <input type="text" name="password" class="user-input" placeholder="Пароль"
-                               autofocus="true" required="required" th:name="password"/>
+                        <div class="new-inputs">
+                            <input type="text" name="username" class="user-input" placeholder="Имя пользователя"
+                                   autofocus="true" required="required" th:value="${user.username}" th:name="username"/>
+                            <input type="text" name="password" class="user-input" placeholder="Пароль"
+                                   autofocus="true" required="required" th:name="password"/>
+                        </div>
                         <div class="bottom-user-buttons">
                             <button type="submit" class="confirm-update-user-button dialog-button">Изменить</button>
                             <button type="button" class="close-update-dialog dialog-button">Отмена</button>
@@ -78,10 +81,12 @@
 
             <td style="text-align: center" class="delete-button-td">
                 <dialog id="delete-dialog" class="delete-dialog dialog">
-                    <div class="some-text" th:text="'Вы действительно хотите удалить сотрудника ' + ${user.username} + '?'">
+                    <div class="some-text"
+                         th:text="'Вы действительно хотите удалить сотрудника ' + ${user.username} + '?'">
                         Удаление
                     </div>
-                    <a class="dialog-button" id="confirm-delete-user-button" th:href="@{'/userPage/index/delete/'+${user.userId}}">Да</a>
+                    <a class="dialog-button" id="confirm-delete-user-button"
+                       th:href="@{'/userPage/index/delete/'+${user.userId}}">Да</a>
                     <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>
                 </dialog>
                 <!--                th:href="@{'/userPage/index/delete/id='+${user.userId}}"-->
