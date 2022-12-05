@@ -51,4 +51,9 @@ public class UnionMemberServiceImpl implements UnionMemberService {
         }
         return false;
     }
+
+    @Override
+    public List<UnionMember> readByPosition(Long positionId) {
+        return unionMemberJpaRepository.getByPositionPositionId(positionId);
+    }
 }

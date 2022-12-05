@@ -32,4 +32,8 @@ public class Position {
     public Position(){
         positionTitle = "";
     }
+
+    public Position(String positionTitle) {
+        this.positionTitle=positionTitle;
+    }
 }

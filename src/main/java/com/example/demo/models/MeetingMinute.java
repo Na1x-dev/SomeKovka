@@ -42,6 +42,7 @@ public class MeetingMinute {
     List<Application> applications;
 
     public MeetingMinute() {
+        meetingMinuteNumber = 0;
         meetingMinuteDate = new Date();
         meetingMinuteTheme = "";
     }

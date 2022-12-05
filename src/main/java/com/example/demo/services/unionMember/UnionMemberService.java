@@ -19,4 +19,5 @@ public interface UnionMemberService {
     boolean delete(Long id);
 
 
+    List<UnionMember> readByPosition(Long positionId);
 }

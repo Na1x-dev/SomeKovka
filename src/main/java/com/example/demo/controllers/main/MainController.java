@@ -65,6 +65,9 @@ public class MainController {
         model.addAttribute("genders", genderService.readAll());
         model.addAttribute("positions", positionService.readAll());
         model.addAttribute("unionMembers", unionMemberService.readAll());
+        List<UnionMember> unionMembersTable = unionMemberService.readAll();
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
         return "mainPage/index";
     }
 
@@ -207,6 +210,9 @@ public class MainController {
         model.addAttribute("newPosition", new Position());
         model.addAttribute("updatePosition", new Position());
         model.addAttribute("positions", positionService.readAll());
+        List<Position> positionsTable = positionService.readAll();
+        positionsTable.remove(positionService.readByTitle(""));
+        model.addAttribute("positionsTable", positionsTable);
         return "positionsPage/index";
     }
 
@@ -368,6 +374,9 @@ public class MainController {
         model.addAttribute("newMeetingMinute", new MeetingMinute());
         model.addAttribute("updateMeetingMinute", new MeetingMinute());
         model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
+        List<MeetingMinute> meetingMinutesTable = meetingMinuteService.readAll();
+        meetingMinutesTable.remove(meetingMinuteService.readByMeetingMinuteNumber(0));
+        model.addAttribute("meetingMinutesTable", meetingMinutesTable);
         return "meetingMinutesPage/index";
     }
 
@@ -393,6 +402,33 @@ public class MainController {
         return "redirect:/meetingMinutesPage/index";
     }
 
+    @GetMapping({"/searchMemberPage/index"})
+    public String searchMemberPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("positions", positionService.readAll());
+        model.addAttribute("searchUnionMember", new UnionMember());
+        model.addAttribute("unionMembers", unionMemberService.readAll());
+
+
+        List<UnionMember> unionMembersTable = unionMemberService.readAll();
+        if(unionMembersTable.equals(new ArrayList<>())){
+
+        }
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
+        return "searchMemberPage/index";
+    }
+
+    @GetMapping({"/searchMemberPage/index/findByPosition"})
+    public String searchMemberPageByPosition(Model model, Principal user,  @ModelAttribute("searchUnionMember") UnionMember searchUnionMember){
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("positions", positionService.readAll());
+        model.addAttribute("unionMembersTable", unionMemberService.readByPosition(searchUnionMember.getPosition().getPositionId()));
+        System.out.println(unionMemberService.readByPosition(searchUnionMember.getPosition().getPositionId()));
+        System.out.println(searchUnionMember.getPosition().getPositionId());
+        return "redirect:/searchMemberPage/index";
+
+    }
 
     public List<ParentChild> getParentChildList() {
         List<UnionMember> unionMembers = unionMemberService.readAll();

@@ -28,9 +28,11 @@ td > div, td, td > a{
 }
 
 .to-something-new-button{
-    background-color: #333333;
-    border-radius: 10px;
 
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    grid-gap:20px;
     font-size: 20px;
     text-decoration: none;
     color: #dddddd;
@@ -40,6 +42,7 @@ td > div, td, td > a{
 }
 
 .to-something-new-button > a{
+    background-color: #333333;
     width: 100%;
     height: 100%;
     display: block;
@@ -47,7 +50,7 @@ td > div, td, td > a{
     border-radius: 10px;
 }
 
-.to-something-new-button:hover{
+.to-something-new-button>a:hover{
     background-color: #444444;
     cursor: pointer;
 }

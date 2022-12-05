@@ -13,4 +13,6 @@ public interface MeetingMinuteService {
     boolean delete(Long id);
 
     boolean update(Long id, MeetingMinute meetingMinute);
+
+    MeetingMinute readByMeetingMinuteNumber(int i);
 }

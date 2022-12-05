@@ -5,6 +5,7 @@ import com.example.demo.security.SecurityService;
 
 
 import com.example.demo.services.gender.GenderService;
+import com.example.demo.services.meetingMinute.MeetingMinuteService;
 import com.example.demo.services.phoneNumber.PhoneNumberService;
 import com.example.demo.services.position.PositionService;
 import com.example.demo.services.role.RoleService;
@@ -42,6 +43,8 @@ public class UserController {
 
     @Autowired
     private PositionService positionService;
+    @Autowired
+    private MeetingMinuteService meetingMinuteService;
 
     @GetMapping("/signUpPage/index")
     public String registration(Model model) {
@@ -71,6 +74,8 @@ public class UserController {
         autoCreateGenders();
         autoCreateEmptyPosition();
         autoCreateEmptyParent();
+        autoCreateEmptyMeetingMinute();
+        autoCreateRetireePosition();
         if (securityService.isAuthenticated()) {
             return "redirect:/";
         }
@@ -128,6 +133,18 @@ public class UserController {
         }
     }
 
+    public void autoCreateRetireePosition() {
+        if (positionService.readByTitle("Пенсионер") == null) {
+            positionService.create(new Position("Пенсионер"));
+        }
+    }
+
+    public void autoCreateEmptyMeetingMinute() {
+        if (meetingMinuteService.readByMeetingMinuteNumber(0) == null) {
+            meetingMinuteService.create(new MeetingMinute());
+        }
+    }
+
     public void autoCreateEmptyParent() {
         if (unionMemberService.readByName("") == null) {
             UnionMember unionMember = new UnionMember();
@@ -142,7 +159,6 @@ public class UserController {
 
     public void autoCreatePhoneNumber() {
         if (phoneNumberService.readById(0L) == null) {
-
         }
     }
 }

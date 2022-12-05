@@ -41,4 +41,9 @@ public class MeetingMinuteServiceImpl implements MeetingMinuteService {
         }
         return false;
     }
+
+    @Override
+    public MeetingMinute readByMeetingMinuteNumber(int i) {
+        return meetingMinuteJpaRepository.getByMeetingMinuteNumber(i);
+    }
 }
