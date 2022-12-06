@@ -105,6 +105,7 @@ public class UnionMember {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
+                ", phone='" + phoneNumbers.get(0).phoneNumber + '\'' +
                 '}';
     }
 }

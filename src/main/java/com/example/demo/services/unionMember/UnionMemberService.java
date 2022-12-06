@@ -20,4 +20,8 @@ public interface UnionMemberService {
 
 
     List<UnionMember> readByPosition(Long positionId);
+
+    List<UnionMember> readBySurname(String surname);
+
+    List<UnionMember> readPensioners();
 }

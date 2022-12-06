@@ -13,4 +13,6 @@ public interface ApplicationService {
     boolean delete(Long id);
 
     boolean update(Long id, Application application);
+
+    List<Application> readByUnionMemberSurname(String surname);
 }

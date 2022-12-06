@@ -1,20 +1,21 @@
 <div class="main-table" th:fragment="list" xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <div class="to-something-new-button">
-
-        <div>
-            <input type="text" class="surname-input search-unionMember-input" placeholder="Фамилия"
+    <div class="to-something-new-button-search">
+        <form th:action="@{/searchMemberPage/index/findBySurname}" class="upper-block-part">
+            <input type="text" class="search-input" placeholder="Фамилия"
                    autofocus required="required" th:field="${searchUnionMember.surname}"/>
-            <a th:href="@{/searchMemberPage/index/findBySurname}">Поиск по фамилии</a>
-        </div>
-        <div>
-            <select name="position" th:field="${searchUnionMember.position.positionId}">
+            <button type="submit" class="search-input">Поиск по фамилии</button>
+        </form>
+        <form th:action="@{/searchMemberPage/index/findByPosition}"  class="upper-block-part">
+            <select class="search-input" name="position" th:field="${searchUnionMember.position.positionId}">
                 <option disabled value="">Выберите должность</option>
                 <option th:each="position : ${positions}" th:value="${position.positionId}"
                         th:utext="${position.positionTitle}"></option>
             </select>
-            <a th:href="@{/searchMemberPage/index/findByPosition}">Поиск по должности</a>
-        </div>
+            <button type="submit" class="search-input">Поиск по должности</button>
+        </form>
+
+        <a onClick="javascript:CallPrint('.table');" title="Распечатать проект"  class="upper-block-part">Распечатать</a>
     </div>
 
     <table class="table">

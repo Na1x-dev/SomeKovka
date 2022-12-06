@@ -56,4 +56,14 @@ public class UnionMemberServiceImpl implements UnionMemberService {
     public List<UnionMember> readByPosition(Long positionId) {
         return unionMemberJpaRepository.getByPositionPositionId(positionId);
     }
+
+    @Override
+    public List<UnionMember> readBySurname(String surname) {
+        return unionMemberJpaRepository.getBySurname(surname);
+    }
+
+    @Override
+    public List<UnionMember> readPensioners() {
+        return unionMemberJpaRepository.readByPositionPositionTitle("Пенсионер");
+    }
 }

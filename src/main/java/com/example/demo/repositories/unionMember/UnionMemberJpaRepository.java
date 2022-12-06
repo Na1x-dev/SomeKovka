@@ -14,4 +14,8 @@ public interface UnionMemberJpaRepository extends JpaRepository<UnionMember, Lon
     UnionMember getByName(String name);
 
     List<UnionMember> getByPositionPositionId(Long positionId);
+
+    List<UnionMember> getBySurname(String surname);
+
+    List<UnionMember> readByPositionPositionTitle(String positionTitle);
 }

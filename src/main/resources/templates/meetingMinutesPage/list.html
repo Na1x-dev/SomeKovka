@@ -114,66 +114,6 @@
                     </a>
                 </div>
             </td>
-<!--            <td style="text-align: center" th:if="${checkUser.isAdmin()}">-->
-<!--                <dialog id="update-dialog" class="update-dialog dialog">-->
-<!--                    <form th:fragment="unionMember-form" class="unionMember-container"-->
-<!--                          th:action="@{'/mainPage/index/update/'+${unionMember.bookId}}" method="post">-->
-<!--                        <div class="some-text" th:text="'Изменение данных книги ' + ${unionMember.title}">-->
-<!--                            Изменение-->
-<!--                        </div>-->
-<!--                        <div class="unionMember-inputs" >-->
-<!--                            <input type="text" class="phoneNumber-input unionMember-input" placeholder="Название книги"-->
-<!--                                   autofocus required="required" th:value="${unionMember.title}" th:name="title"/>-->
-<!--                            <input type="text" class="phoneNumber-input unionMember-input" placeholder="Автор"-->
-<!--                                   autofocus required="required" th:value="${unionMember.position.authorName}" th:name="position.authorName"/>-->
-<!--                            <input type="text" class="phoneNumber-input unionMember-input" placeholder="Издательство"-->
-<!--                                   autofocus required="required"-->
-<!--                                   th:name="materialPayment.publisherTitle" th:value="${unionMember.materialPayment.publisherTitle}"/>-->
-<!--                            <input type="text" class="phoneNumber-input unionMember-input" placeholder="Жанр"-->
-<!--                                   autofocus required="required" th:value="${unionMember.genre.genreName}" th:name="genre.genreName"/>-->
-<!--                            <input type="text" value="loh" class="phoneNumber-input unionMember-input" placeholder="Язык"-->
-<!--                                   autofocus required="required" th:value="${unionMember.groundsForFinPayment.languageName}" th:name="groundsForFinPayment.languageName"/>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;                        <input type="text" name="username" class="user-input" placeholder="Имя пользователя"&ndash;&gt;-->
-<!--                        &lt;!&ndash;                               autofocus="true" required="required" th:value="${user.username}" th:field="${updateUser.username}"/>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <input type="text" name="password" class="user-input" placeholder="Пароль"&ndash;&gt;-->
-<!--                        &lt;!&ndash;                               autofocus="true" required="required" th:field="${updateUser.password}"/>&ndash;&gt;-->
-<!--                        <div class="bottom-unionMember-buttons">-->
-<!--                            <button type="submit" class="confirm-update-unionMember-button dialog-button">Изменить</button>-->
-<!--                            <button type="button" class="close-update-dialog dialog-button">Отмена</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                    &lt;!&ndash;        <span class="has-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">some error error error error error</span>&ndash;&gt;-->
-<!--                    &lt;!&ndash;        <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">some error error error error error</span>&ndash;&gt;-->
-<!--                </dialog>-->
-<!--                <a class="unionMember-update-button open-update-dialog open-dialog" th:onclick="-->
-<!--                    let tdParent = this.closest('td');-->
-<!--                    let dialogCloseButton = tdParent.querySelector('.unionMember-container').querySelector('.bottom-unionMember-buttons').querySelector('.close-update-dialog');-->
-<!--                    let updateDialog = tdParent.querySelector('#update-dialog');-->
-<!--                    updateDialog.show();-->
-<!--                    dialogCloseButton.onclick = function(){-->
-<!--                    updateDialog.close();}">Изменить-->
-<!--                </a>-->
-<!--            </td>-->
-
-<!--            <td style="text-align: center" class="delete-button-td" th:if="${checkUser.isAdmin()}">-->
-<!--                <dialog id="delete-dialog" class="delete-dialog dialog">-->
-<!--                    <div class="some-text" th:text="'Вы действительно хотите удалить книгу ' + ${unionMember.title} + '?'">-->
-<!--                        Удаление-->
-<!--                    </div>-->
-<!--                    <a class="dialog-button" id="confirm-delete-unionMember-button"-->
-<!--                       th:href="@{'/mainPage/index/delete/'+${unionMember.bookId}}">Да</a>-->
-<!--                    <button id="close-delete-dialog-button" class="dialog-button" autofocus>Нет</button>-->
-<!--                </dialog>-->
-<!--                &lt;!&ndash;                th:href="@{'/userPage/index/delete/id='+${user.userId}}"&ndash;&gt;-->
-<!--                <a class="unionMember-delete-button open-delete-dialog open-dialog" th:onclick="-->
-<!--                    let tdParent = this.closest('td');-->
-<!--                    let deleteDialog = tdParent.querySelector('#delete-dialog');-->
-<!--                    deleteDialog.show();-->
-<!--                    tdParent.querySelector('#close-delete-dialog-button').onclick = function(){-->
-<!--                    deleteDialog.close();}">Удалить-->
-<!--                </a>-->
-<!--            </td>-->
         </tr>
         </tbody>
     </table>

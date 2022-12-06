@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import java.security.Principal;
 import java.util.*;
 
@@ -240,16 +241,25 @@ public class MainController {
         return "redirect:/positionsPage/index";
     }
 
+    List<Application> applications;
+
+    boolean inSearch = false;
+
     @GetMapping({"/unionMembersApplicationsPage/index"})
     public String unionMembersApplicationsPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-        model.addAttribute("applications", applicationService.readAll());
+        if(applications == null || !inSearch){
+            applications = applicationService.readAll();
+        }
+        model.addAttribute("applications", applications);
         model.addAttribute("newApplication", new Application());
         model.addAttribute("updateApplication", new Application());
+        model.addAttribute("searchUnionMember", new UnionMember());
         model.addAttribute("unionMembers", unionMemberService.readAll());
         model.addAttribute("applicationTypes", applicationTypeService.readAll());
         model.addAttribute("materialPayments", materialPaymentService.readAll());
         model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
+        inSearch = false;
         return "unionMembersApplicationsPage/index";
     }
 
@@ -271,6 +281,15 @@ public class MainController {
     public String unionMembersApplicationsPageDelete(Model model, Principal user, @PathVariable("id") Long applicationId) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         applicationService.delete(applicationId);
+        return "redirect:/unionMembersApplicationsPage/index";
+    }
+
+    @GetMapping({"/searchApplicationPage/index/findBySurname"})
+    public String searchApplicationPageBySurname(Model model, Principal user, @ModelAttribute("searchUnionMember") UnionMember searchUnionMember) {
+        inSearch=true;
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        applications = applicationService.readByUnionMemberSurname(searchUnionMember.getSurname());
+        model.addAttribute("applications", applications);
         return "redirect:/unionMembersApplicationsPage/index";
     }
 
@@ -402,32 +421,82 @@ public class MainController {
         return "redirect:/meetingMinutesPage/index";
     }
 
+    List<UnionMember> unionMembersTable;
+
     @GetMapping({"/searchMemberPage/index"})
     public String searchMemberPage(Model model, Principal user) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("positions", positionService.readAll());
         model.addAttribute("searchUnionMember", new UnionMember());
         model.addAttribute("unionMembers", unionMemberService.readAll());
-
-
-        List<UnionMember> unionMembersTable = unionMemberService.readAll();
-        if(unionMembersTable.equals(new ArrayList<>())){
-
+        if(unionMembersTable == null){
+            unionMembersTable = new ArrayList<>();
         }
         unionMembersTable.remove(unionMemberService.readByName(""));
+        System.out.println(unionMembersTable);
         model.addAttribute("unionMembersTable", unionMembersTable);
         return "searchMemberPage/index";
     }
 
     @GetMapping({"/searchMemberPage/index/findByPosition"})
-    public String searchMemberPageByPosition(Model model, Principal user,  @ModelAttribute("searchUnionMember") UnionMember searchUnionMember){
+    public String searchMemberPageByPosition(Model model, Principal user, @ModelAttribute("searchUnionMember") UnionMember searchUnionMember) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("positions", positionService.readAll());
-        model.addAttribute("unionMembersTable", unionMemberService.readByPosition(searchUnionMember.getPosition().getPositionId()));
-        System.out.println(unionMemberService.readByPosition(searchUnionMember.getPosition().getPositionId()));
-        System.out.println(searchUnionMember.getPosition().getPositionId());
+        unionMembersTable = unionMemberService.readByPosition(searchUnionMember.getPosition().getPositionId());
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
         return "redirect:/searchMemberPage/index";
+    }
 
+    @GetMapping({"/searchMemberPage/index/findBySurname"})
+    public String searchMemberPageBySurname(Model model, Principal user, @ModelAttribute("searchUnionMember") UnionMember searchUnionMember) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("positions", positionService.readAll());
+        unionMembersTable = unionMemberService.readBySurname(searchUnionMember.getSurname());
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
+        return "redirect:/searchMemberPage/index";
+    }
+
+    TableMode tableMode;
+
+    @GetMapping({"/reportsPage/index"})
+    public String reportsPage(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        model.addAttribute("parentsChildren", getChildren13());
+        if(tableMode ==null){
+            tableMode = new TableMode();
+        }
+        model.addAttribute("tableMode", tableMode);
+        List<UnionMember> unionMembersTable = unionMemberService.readPensioners();
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
+        return "reportsPage/index";
+    }
+
+    @GetMapping({"/reportsPage/index/children13"})
+    public String reportsPageChildren13(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(1);
+        return "redirect:/reportsPage/index";
+    }
+
+    @GetMapping({"/reportsPage/index/pensioners"})
+    public String reportsPagePensioners(Model model, Principal user) {
+        model.addAttribute("checkUser", userService.findByUsername(user.getName()));
+        tableMode.setMode(2);
+        return "redirect:/reportsPage/index";
+    }
+
+    public List<ParentChild> getChildren13(){
+        List<ParentChild> parentsChildren = getParentChildList();
+        List<ParentChild> result = new ArrayList<>();
+        for(ParentChild parentChild : parentsChildren){
+            if(new Date().getTime() - parentChild.getChild().getBirthdate().getTime() < 441806400000L){
+                result.add(parentChild);
+            }
+        }
+        return result;
     }
 
     public List<ParentChild> getParentChildList() {
@@ -460,81 +529,4 @@ public class MainController {
         return phoneNumberService.create(unionMember.getPhoneNumbers().get(0));
     }
 
-//
-//    public Position saveAuthor(Position position) {
-//        Position somePosition = authorService.readByAuthorName(position.getAuthorName());
-//        if (somePosition == null)
-//            return authorService.create(position);
-//        else
-//            return somePosition;
-//    }
-//
-//    public Gender saveGenre(Gender genre) {
-//        Gender someGenre = genreService.readByGenreName(genre.getGenreName());
-//        if (someGenre == null)
-//            return genreService.create(genre);
-//        else
-//            return someGenre;
-//    }
-//
-//    public ApplicationType saveIsbn(UnionMember unionMember) {
-//        unionMember.getApplicationType().generateIsbnNumber(unionMember);
-//        ApplicationType someApplicationType = isbnService.readByIsbnNumber(unionMember.getApplicationType().getIsbnNumber());
-//        if (someApplicationType == null)
-//            return isbnService.create(unionMember.getApplicationType());
-//        else
-//            return someApplicationType;
-//    }
-//
-//    public GroundsForFinPayment saveLanguage(GroundsForFinPayment groundsForFinPayment) {
-//        GroundsForFinPayment someGroundsForFinPayment = languageService.readByLanguageName(groundsForFinPayment.getLanguageName());
-//        if (someGroundsForFinPayment == null)
-//            return languageService.create(groundsForFinPayment);
-//        else
-//            return someGroundsForFinPayment;
-//    }
-//
-//    public void updateBook(UnionMember unionMember, UnionMember updateUnionMember){
-//        unionMember.setTitle(updateUnionMember.getTitle().toLowerCase().trim());
-//        unionMember.setPosition(saveAuthor(updateUnionMember.getPosition()));
-//        unionMember.setGenre(saveGenre(updateUnionMember.getGenre()));
-//        unionMember.setApplicationType(saveIsbn(updateUnionMember));
-//        unionMember.setGroundsForFinPayment(saveLanguage(updateUnionMember.getGroundsForFinPayment()));
-//        unionMember.setMaterialPayment(savePublisher(updateUnionMember.getMaterialPayment()));
-//    }
-//
-//    public UnionMember saveBook(UnionMember unionMember) {
-//        unionMember.setPosition(saveAuthor(unionMember.getPosition()));
-//        unionMember.setGenre(saveGenre(unionMember.getGenre()));
-//        unionMember.setApplicationType(saveIsbn(unionMember));
-//        unionMember.setGroundsForFinPayment(saveLanguage(unionMember.getGroundsForFinPayment()));
-//        unionMember.setMaterialPayment(savePublisher(unionMember.getMaterialPayment()));
-//        UnionMember someUnionMember = bookService.readByBookTitle(unionMember.getTitle());
-//        if (someUnionMember == null || !someUnionMember.equals(unionMember))
-//            return bookService.create(unionMember);
-//        else
-//            return someUnionMember;
-//    }
-//
-//    public void saveSupplyDetail(PhoneNumber phoneNumber) {
-//        List<SupplyDetail> supplyDetails = phoneNumber.getSupplyDetails();
-//        for (int i = 0; i < supplyDetails.size(); i++) {
-//            supplyDetails.get(i).setPhoneNumber(phoneNumber);
-//            supplyDetails.get(i).setUnionMember(saveBook(supplyDetails.get(i).getUnionMember()));
-//            supplyDetails.set(i, supplyDetailService.create(supplyDetails.get(i)));
-//        }
-//    }
-//
-//    public MeetingMinute saveSupplier(MeetingMinute meetingMinute) {
-//        MeetingMinute someMeetingMinute = supplierService.readBySupplierName(meetingMinute.getSupplierName());
-//        if (someMeetingMinute == null)
-//            return supplierService.create(meetingMinute);
-//        else
-//            return someMeetingMinute;
-//    }
-//
-//    public void saveSupply(PhoneNumber phoneNumber) {
-//        phoneNumber.setMeetingMinute(saveSupplier(phoneNumber.getMeetingMinute()));
-//        saveSupplyDetail(supplyService.create(phoneNumber));
-//    }
 }
