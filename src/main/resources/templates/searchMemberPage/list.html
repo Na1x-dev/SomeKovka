@@ -8,7 +8,7 @@
         </form>
         <form th:action="@{/searchMemberPage/index/findByPosition}"  class="upper-block-part">
             <select class="search-input" name="position" th:field="${searchUnionMember.position.positionId}">
-                <option disabled value="">Выберите должность</option>
+                <option disabled value="" selected>Выберите должность</option>
                 <option th:each="position : ${positions}" th:value="${position.positionId}"
                         th:utext="${position.positionTitle}"></option>
             </select>

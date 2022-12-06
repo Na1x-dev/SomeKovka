@@ -8,8 +8,8 @@
                 <div class="new-material-payment-inputs new-inputs">
                     <input type="number" step="0.01" class="title-input new-material-payment-input" placeholder="Сумма выплаты"
                            autofocus min="0" required="required" th:field="${newMaterialPayment.paymentAmount}"/>
-                    <select name="groundsForFinPayment" th:field="${newMaterialPayment.groundsForFinPayment.groundId}">
-                        <option disabled value="">Выберите основание</option>
+                    <select name="groundsForFinPayment.groundId">
+                        <option disabled value="" selected>Выберите основание</option>
                         <option th:each="ground : ${grounds}" th:value="${ground.groundId}" th:utext="${ground.groundText}"></option>
                     </select>
                 </div>
@@ -65,9 +65,9 @@
                             <div class="update-material-payment-inputs update-inputs">
                                 <input type="number" step="0.01" class="title-input update-material-payment-input" placeholder="Сумма выплаты"
                                        autofocus min="0" required="required" th:value="${materialPayment.paymentAmount}" name="paymentAmount"/>
-                                <select name="groundsForFinPayment" th:field="${updateMaterialPayment.groundsForFinPayment.groundId}">
+                                <select th:name="groundsForFinPayment.groundId">
                                     <option disabled value="">Выберите основание</option>
-                                    <option th:each="ground : ${grounds}" th:value="${ground.groundId}" th:utext="${ground.groundText}"></option>
+                                    <option th:each="ground : ${grounds}" th:value="${ground.groundId}" th:utext="${ground.groundText}" th:selected="(${materialPayment.groundsForFinPayment.groundId}==${ground.groundId})"></option>
                                 </select>
                             </div>
                             <div class="bottom-update-material-payment-buttons">

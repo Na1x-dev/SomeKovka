@@ -109,7 +109,9 @@ public class MainController {
 
     @GetMapping({"/childrenPage/index"})
     public String childrenPage(Model model, Principal user) {
-        System.out.println(getParentChildList());
+        for(ParentChild parentChild :getParentChildList()){
+            System.out.println(parentChild.getChild());
+        }
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("genders", genderService.readAll());
         model.addAttribute("newChild", new Child());

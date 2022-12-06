@@ -15,14 +15,14 @@
                            autofocus required="required" th:field="${newUnionMember.patronymic}"/>
                     <input type="date" class="birthdate-input new-unionMember-input" placeholder="Дата рождения"
                            autofocus="true" required="required" th:field="${newUnionMember.birthdate}"/>
-                    <select name="gender" th:field="${newUnionMember.gender.genderId}">
-                        <option disabled value="">Выберите пол</option>
+                    <select  name="gender.genderId">
+                        <option disabled value="" selected>Выберите пол</option>
                         <option th:each="gender : ${genders}" th:value="${gender.genderId}"
                                 th:utext="${gender.genderTitle}"></option>
                     </select>
 
-                    <select name="position" th:field="${newUnionMember.position.positionId}">
-                        <option disabled value="">Выберите должность</option>
+                    <select name="position.positionId">
+                        <option disabled value="" selected>Выберите должность</option>
                         <option th:each="position : ${positions}" th:value="${position.positionId}"
                                 th:utext="${position.positionTitle}"></option>
                     </select>
@@ -121,20 +121,19 @@
                                        th:name="patronymic"/>
                                 <input type="date" class="birthdate-input update-unionMember-input"
                                        placeholder="Дата рождения"
-                                       autofocus="true" required="required" th:value="${unionMember.birthdate}"
+                                       autofocus="true" required="required" th:value="${unionMember.formatDateForChange()}"
                                        th:name="birthdate"/>
-                                <select name="gender" th:value="${unionMember.gender.genderId}"
-                                        th:name="gender.genderId">
+                                <select th:name="gender.genderId">
                                     <option disabled value="">Выберите пол</option>
                                     <option th:each="gender : ${genders}" th:value="${gender.genderId}"
-                                            th:utext="${gender.genderTitle}"></option>
+                                            th:utext="${gender.genderTitle}"  th:selected="(${unionMember.gender.genderId}==${gender.genderId})" ></option>
                                 </select>
 
                                 <select name="position" th:value="${unionMember.position.positionId}"
                                         th:name="position.positionId">
-                                    <option disabled value="">Выберите должность</option>
+                                    <option disabled value="" selected>Выберите должность</option>
                                     <option th:each="position : ${positions}" th:value="${position.positionId}"
-                                            th:utext="${position.positionTitle}"></option>
+                                            th:utext="${position.positionTitle}"  th:selected="(${unionMember.position.positionId}==${position.positionId})"></option>
                                 </select>
                                 <input type="text" class="phoneNumber-input update-unionMember-input"
                                        placeholder="Номер телефона"

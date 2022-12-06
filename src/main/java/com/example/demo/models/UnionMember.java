@@ -98,6 +98,11 @@ public class UnionMember {
         return format.format(birthdate);
     }
 
+    public String formatDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(birthdate);
+    }
+
     @Override
     public String toString() {
         return "UnionMember{" +

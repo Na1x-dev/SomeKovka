@@ -8,10 +8,13 @@
                 </div>
 
                 <div class="new-member-org-inputs new-inputs">
-                    <select name="publicOrganization" th:field="${newMemberOrg.publicOrganization.publicOrganizationId}" >
-                        <option th:each="publicOrganization : ${publicOrganizations}" th:value="${publicOrganization.publicOrganizationId}" th:utext="${publicOrganization.publicOrganizationTitle}"></option>
+                    <select name="publicOrganization.publicOrganizationId" >
+                        <option disabled value="" selected>Выберите организацию</option>
+                        <option th:each="publicOrganization : ${publicOrganizations}" th:value="${publicOrganization.publicOrganizationId}"
+                                th:utext="${publicOrganization.publicOrganizationTitle}" ></option>
                     </select>
-                    <select name="unionMember" th:field="${newMemberOrg.unionMember.unionMemberId}" >
+                    <select name="unionMember.unionMemberId" >
+                        <option disabled value="" selected>Выберите члена</option>
                         <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
                 </div>

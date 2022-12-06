@@ -64,6 +64,11 @@ public class Child {
         return format.format(birthdate);
     }
 
+    public String formatDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(birthdate);
+    }
+
     public Long getUnionMemberId(){
         Iterator<UnionMember> unionMemberIterator = unionMembers.iterator();
         return unionMemberIterator.next().unionMemberId;
@@ -87,6 +92,7 @@ public class Child {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
+                ", parents='" + unionMembers + '\'' +
                 '}';
     }
 

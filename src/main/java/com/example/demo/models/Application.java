@@ -52,6 +52,11 @@ public class Application {
 
     }
 
+    public String formatDateForChange() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(registerDate);
+    }
+
     public String getDateInNormalFormat() {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         return format.format(registerDate);

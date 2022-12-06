@@ -70,7 +70,7 @@
                                 <input class="title-input update-meeting-minute-input" placeholder="Номер протокола"
                                        autofocus required="required" th:value="${meetingMinute.meetingMinuteNumber}" name="meetingMinuteNumber"/>
                                 <input type="date" class="date-input update-meeting-minute-input" placeholder="Дата протокола"
-                                       autofocus="true" required="required" th:value="${meetingMinute.meetingMinuteDate}" name="meetingMinuteDate"/>
+                                       autofocus="true" required="required" th:value="${meetingMinute.formatDateForChange()}" name="meetingMinuteDate"/>
                                 <input class="title-input update-meeting-minute-input" placeholder="Тема заседания"
                                        autofocus required="required" th:value="${meetingMinute.meetingMinuteTheme}" name="meetingMinuteTheme"/>
                             </div>
