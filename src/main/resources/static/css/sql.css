@@ -52,3 +52,34 @@
 
 .table-cell{
 padding: 10px;}
+
+
+
+.main-table{
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.table, th, td{
+    color: #dddddd;
+    font-size: 15px;
+    background-color: #333333;
+    border-radius: 10px;
+    }
+
+td{
+height: 40px;
+}
+
+td > div, td, td > a{
+    background-color: #444444;
+    border-radius: 5px;
+}
+
+.table{
+    table-layout: fixed;
+    padding:10px;
+    border-spacing: 5px;
+    width: 100%;
+}

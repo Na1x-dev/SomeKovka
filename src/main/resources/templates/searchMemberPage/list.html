@@ -7,9 +7,9 @@
             <button type="submit" class="search-input">Поиск по фамилии</button>
         </form>
         <form th:action="@{/searchMemberPage/index/findByPosition}"  class="upper-block-part">
-            <select class="search-input" name="position" th:field="${searchUnionMember.position.positionId}">
+            <select required class="search-input" name="position.positionId">
                 <option disabled value="" selected>Выберите должность</option>
-                <option th:each="position : ${positions}" th:value="${position.positionId}"
+                <option th:each="position : ${positionsTable}" th:value="${position.positionId}"
                         th:utext="${position.positionTitle}"></option>
             </select>
             <button type="submit" class="search-input">Поиск по должности</button>

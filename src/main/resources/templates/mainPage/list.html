@@ -15,13 +15,13 @@
                            autofocus required="required" th:field="${newUnionMember.patronymic}"/>
                     <input type="date" class="birthdate-input new-unionMember-input" placeholder="Дата рождения"
                            autofocus="true" required="required" th:field="${newUnionMember.birthdate}"/>
-                    <select  name="gender.genderId">
+                    <select required name="gender.genderId">
                         <option disabled value="" selected>Выберите пол</option>
                         <option th:each="gender : ${genders}" th:value="${gender.genderId}"
                                 th:utext="${gender.genderTitle}"></option>
                     </select>
 
-                    <select name="position.positionId">
+                    <select required name="position.positionId">
                         <option disabled value="" selected>Выберите должность</option>
                         <option th:each="position : ${positions}" th:value="${position.positionId}"
                                 th:utext="${position.positionTitle}"></option>
@@ -123,13 +123,13 @@
                                        placeholder="Дата рождения"
                                        autofocus="true" required="required" th:value="${unionMember.formatDateForChange()}"
                                        th:name="birthdate"/>
-                                <select th:name="gender.genderId">
+                                <select required th:name="gender.genderId">
                                     <option disabled value="">Выберите пол</option>
                                     <option th:each="gender : ${genders}" th:value="${gender.genderId}"
                                             th:utext="${gender.genderTitle}"  th:selected="(${unionMember.gender.genderId}==${gender.genderId})" ></option>
                                 </select>
 
-                                <select name="position" th:value="${unionMember.position.positionId}"
+                                <select required name="position" th:value="${unionMember.position.positionId}"
                                         th:name="position.positionId">
                                     <option disabled value="" selected>Выберите должность</option>
                                     <option th:each="position : ${positions}" th:value="${position.positionId}"

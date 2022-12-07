@@ -39,7 +39,6 @@ public class MainController {
     GenderService genderService;
     @Autowired
     UnionMemberService unionMemberService;
-
     @Autowired
     ApplicationService applicationService;
     @Autowired
@@ -52,7 +51,6 @@ public class MainController {
     PhoneNumberService phoneNumberService;
     @Autowired
     PublicOrganizationService publicOrganizationService;
-
     @Autowired
     PositionService positionService;
     @Autowired
@@ -109,15 +107,15 @@ public class MainController {
 
     @GetMapping({"/childrenPage/index"})
     public String childrenPage(Model model, Principal user) {
-        for(ParentChild parentChild :getParentChildList()){
-            System.out.println(parentChild.getChild());
-        }
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("genders", genderService.readAll());
         model.addAttribute("newChild", new Child());
         model.addAttribute("updateChild", new Child());
         model.addAttribute("unionMembers", unionMemberService.readAll());
         model.addAttribute("parentsChildren", getParentChildList());
+        List<UnionMember> unionMembersTable = unionMemberService.readAll();
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
         return "childrenPage/index";
     }
 
@@ -151,6 +149,9 @@ public class MainController {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
         model.addAttribute("unionMembersPublicOrganizations", getPublicOrgUnionMemberList());
         model.addAttribute("unionMembers", unionMemberService.readAll());
+        List<UnionMember> unionMembersTable = unionMemberService.readAll();
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
         model.addAttribute("newMemberOrg", new PublicOrgUnionMember());
         model.addAttribute("updateMemberOrg", new PublicOrgUnionMember());
         model.addAttribute("publicOrganizations", publicOrganizationService.readAll());
@@ -261,6 +262,9 @@ public class MainController {
         model.addAttribute("applicationTypes", applicationTypeService.readAll());
         model.addAttribute("materialPayments", materialPaymentService.readAll());
         model.addAttribute("meetingMinutes", meetingMinuteService.readAll());
+        List<UnionMember> unionMembersTable = unionMemberService.readAll();
+        unionMembersTable.remove(unionMemberService.readByName(""));
+        model.addAttribute("unionMembersTable", unionMembersTable);
         inSearch = false;
         return "unionMembersApplicationsPage/index";
     }
@@ -314,7 +318,6 @@ public class MainController {
     @PostMapping("/applicationTypesPage/index/update/{id}")
     public String applicationTypesPageUpdate(Model model, @ModelAttribute("updateApplicationType") ApplicationType updateApplicationType, Principal user, @PathVariable("id") Long applicationTypeId) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-//        updateChild.setGender(genderService.readById(updateChild.getGender().getGenderId()));
         applicationTypeService.update(applicationTypeId, updateApplicationType);
         return "redirect:/applicationTypesPage/index";
     }
@@ -377,7 +380,6 @@ public class MainController {
     @PostMapping("/groundsForFinPayPage/index/update/{id}")
     public String groundsForFinPayPageUpdate(Model model, @ModelAttribute("updatePayGround") GroundsForFinPayment updatePayGround, Principal user, @PathVariable("id") Long groundId) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-//        updateChild.setGender(genderService.readById(updateChild.getGender().getGenderId()));
         groundsForFinPaymentService.update(groundId, updatePayGround);
         return "redirect:/groundsForFinPayPage/index";
     }
@@ -411,7 +413,6 @@ public class MainController {
     @PostMapping("/meetingMinutesPage/index/update/{id}")
     public String meetingMinutesPageUpdate(Model model, @ModelAttribute("updateMeetingMinute") MeetingMinute updateMeetingMinute, Principal user, @PathVariable("id") Long meetingMinuteId) {
         model.addAttribute("checkUser", userService.findByUsername(user.getName()));
-//        updateChild.setGender(genderService.readById(updateChild.getGender().getGenderId()));
         meetingMinuteService.update(meetingMinuteId, updateMeetingMinute);
         return "redirect:/meetingMinutesPage/index";
     }
@@ -431,6 +432,9 @@ public class MainController {
         model.addAttribute("positions", positionService.readAll());
         model.addAttribute("searchUnionMember", new UnionMember());
         model.addAttribute("unionMembers", unionMemberService.readAll());
+        List<Position> positionsTable = positionService.readAll();
+        positionsTable.remove(positionService.readByTitle(""));
+        model.addAttribute("positionsTable", positionsTable);
         if(unionMembersTable == null){
             unionMembersTable = new ArrayList<>();
         }

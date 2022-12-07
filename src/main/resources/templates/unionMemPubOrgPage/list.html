@@ -8,14 +8,14 @@
                 </div>
 
                 <div class="new-member-org-inputs new-inputs">
-                    <select name="publicOrganization.publicOrganizationId" >
+                    <select required name="publicOrganization.publicOrganizationId" >
                         <option disabled value="" selected>Выберите организацию</option>
                         <option th:each="publicOrganization : ${publicOrganizations}" th:value="${publicOrganization.publicOrganizationId}"
                                 th:utext="${publicOrganization.publicOrganizationTitle}" ></option>
                     </select>
-                    <select name="unionMember.unionMemberId" >
+                    <select required name="unionMember.unionMemberId" >
                         <option disabled value="" selected>Выберите члена</option>
-                        <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
+                        <option th:each="unionMember : ${unionMembersTable}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
                 </div>
                 <div class="bottom-new-member-org-buttons">

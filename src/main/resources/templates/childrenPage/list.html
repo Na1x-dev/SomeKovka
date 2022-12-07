@@ -15,16 +15,16 @@
                            autofocus required="required" th:field="${newChild.patronymic}"/>
                     <input type="date" class="birthdate-input new-child-input" placeholder="Дата рождения"
                            autofocus="true" required="required" th:field="${newChild.birthdate}"/>
-                    <select name="gender.genderId">
+                    <select required name="gender.genderId">
                         <option disabled value="" selected>Выберите пол</option>
                         <option th:each="gender : ${genders}" th:value="${gender.genderId}" th:utext="${gender.genderTitle}" ></option>
                     </select>
 
-                    <select name="unionMembers[0].unionMemberId">
+                    <select required name="unionMembers[0].unionMemberId">
                         <option disabled value="" selected>Выберите первого родителя</option>
                         <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
-                    <select name="unionMembers[1].unionMemberId">
+                    <select required name="unionMembers[1].unionMemberId">
                         <option disabled value="" selected>Выберите второго родителя</option>
                         <option th:each="unionMember : ${unionMembers}" th:value="${unionMember.unionMemberId}" th:utext="${unionMember.getIdAndName()}"></option>
                     </select>
@@ -119,13 +119,13 @@
                                         <input type="date" class="birthdate-input update-child-input"
                                                placeholder="Дата рождения"
                                                autofocus="true" required="required" th:value="${parentChild.child.formatDateForChange()}" th:name="birthdate"/>
-                                        <select name="gender.genderId">
+                                        <select required name="gender.genderId">
                                             <option disabled value="">Выберите пол</option>
                                             <option th:each="gender : ${genders}" th:value="${gender.genderId}"
                                                     th:utext="${gender.genderTitle}" th:selected="(${parentChild.child.gender.genderId}==${gender.genderId})"></option>
                                         </select>
 
-                                        <select name="unionMembers[0].unionMemberId">
+                                        <select required name="unionMembers[0].unionMemberId">
                                             <option disabled value="">Выберите первого родителя</option>
                                             <option th:each="unionMember1 : ${unionMembers}" th:value="${unionMember1.unionMemberId}"
                                                     th:utext="${unionMember1.getIdAndName()}" th:selected="(${parentChild.unionMember.unionMemberId}==${unionMember1.unionMemberId})"></option>

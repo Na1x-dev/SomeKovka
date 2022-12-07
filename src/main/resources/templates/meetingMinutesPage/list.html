@@ -6,7 +6,7 @@
                 <div class="some-text" th:text="'Новый протокол заседания'">
                 </div>
                 <div class="new-meeting-minute-inputs new-inputs">
-                    <input class="title-input new-meeting-minute-input" placeholder="Номер протокола"
+                    <input type="number" min="1" class="title-input new-meeting-minute-input" placeholder="Номер протокола"
                            autofocus required="required" th:field="${newMeetingMinute.meetingMinuteNumber}"/>
                     <input type="date" class="date-input new-meeting-minute-input" placeholder="Дата протокола"
                            autofocus="true" required="required" th:field="${newMeetingMinute.meetingMinuteDate}"/>
@@ -67,7 +67,7 @@
                             <div class="some-text" th:text="'Изменение протокола заседания'">
                             </div>
                             <div class="update-meeting-minute-type-inputs update-inputs">
-                                <input class="title-input update-meeting-minute-input" placeholder="Номер протокола"
+                                <input type="number" min="1" class="title-input update-meeting-minute-input" placeholder="Номер протокола"
                                        autofocus required="required" th:value="${meetingMinute.meetingMinuteNumber}" name="meetingMinuteNumber"/>
                                 <input type="date" class="date-input update-meeting-minute-input" placeholder="Дата протокола"
                                        autofocus="true" required="required" th:value="${meetingMinute.formatDateForChange()}" name="meetingMinuteDate"/>
