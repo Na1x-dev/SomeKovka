@@ -1,21 +1,33 @@
 #header{
     color: #777333;
-    background-color: #333333;
     display: flex;
     flex-direction: column;
-    margin: 20px;
     padding: 10px;
     border-radius: 10px;
-    min-width: 400px;
+    width:10px;
+    height: 100vh;
+}
+
+
+header:hover #header{
+    width: 400px;
+    margin: 20px;
+    background-color: #333333;
+}
+
+header:hover .header-button{
+    display: block;
 }
 
 .header-button{
+    display: none;
     padding: 5px;
     font-size: 20px;
     text-decoration: none;
     color: #dddddd;
     margin: 5px;
     border-radius: 5px;
+
 }
 
 .header-button:hover{

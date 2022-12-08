@@ -8,8 +8,8 @@
 
 body{
     background-color: #222222;
-    display: grid;
-    grid-template-columns: 1fr 3fr ;
+    display: flex;
+    flex-direction: row;
 }
 
 .main {
