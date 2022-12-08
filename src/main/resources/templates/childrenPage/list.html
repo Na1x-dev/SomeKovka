@@ -125,11 +125,11 @@
                                                     th:utext="${gender.genderTitle}" th:selected="(${parentChild.child.gender.genderId}==${gender.genderId})"></option>
                                         </select>
 
-                                        <select required name="unionMembers[0].unionMemberId">
-                                            <option disabled value="">Выберите первого родителя</option>
-                                            <option th:each="unionMember1 : ${unionMembers}" th:value="${unionMember1.unionMemberId}"
-                                                    th:utext="${unionMember1.getIdAndName()}" th:selected="(${parentChild.unionMember.unionMemberId}==${unionMember1.unionMemberId})"></option>
-                                        </select>
+<!--                                        <select required name="unionMembers[0].unionMemberId">-->
+<!--                                            <option disabled value="">Выберите первого родителя</option>-->
+<!--                                            <option th:each="unionMember1 : ${unionMembersTable}" th:value="${unionMember1.unionMemberId}"-->
+<!--                                                    th:utext="${unionMember1.getIdAndName()}" th:selected="(${parentChild.unionMember.unionMemberId}==${unionMember1.unionMemberId})"></option>-->
+<!--                                        </select>-->
 <!--                                        <select name="unionMembers[1].unionMemberId">-->
 <!--                                            <option disabled value="">Выберите второго родителя</option>-->
 <!--                                            <option th:each="unionMember2 : ${unionMembers}" th:value="${unionMember2.unionMemberId}"-->
