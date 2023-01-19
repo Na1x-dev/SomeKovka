@@ -1,5 +1,5 @@
-package com.example.demo.controllers.main;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.example.demo.controllers;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,13 @@ import java.util.*;
 @Controller
 public class MainController {
 
-    @GetMapping({"/mainPage/"})
+
+    @GetMapping({"/"})
+    public String mainPage() {
+        return "redirect:/mainPage";
+    }
+
+    @GetMapping({"/mainPage"})
     public String mainPage(Model model, Principal user) {
         return "mainPage/index";
     }

@@ -1,0 +1,21 @@
+
+.background{
+    display: flex;
+    flex-direction: row;
+    background-color: #ededed;
+    margin-right: 0;
+    margin-left: auto;
+    justify-content: end;
+}
+
+.background-image{
+    height: 100vh;
+}
+
+.main-header-text{
+    font-weight: 700;
+    font-size: 40px;
+    margin-left: 50px;
+    margin-top: 110px;
+    color: #444444;
+}
