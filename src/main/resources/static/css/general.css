@@ -26,7 +26,8 @@ header{
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
-    border-bottom: 1px solid #ededed;`;
+    border-bottom: 1px solid #ededed;
+    width: 155px;
 }
 
 

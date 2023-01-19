@@ -56,7 +56,7 @@ function updateHeaderButtons() {
 
 
     headerButtons.map(function (headerButton, index) {
-     headerButton.style = defaultStyleHeaderButton;
+        headerButton.style = defaultStyleHeaderButton;
         headerButton.onmouseover = function () {
             this.style = defaultStyleHeaderButtonHover;
         }
@@ -65,12 +65,12 @@ function updateHeaderButtons() {
         }
         if (index == counter) {
             headerButton.style = selectedStyleHeaderButton;
-headerButton.onmouseover = function () {
-            this.style = selectedStyleHeaderButton;
-        }
-        headerButton.onmouseout = function () {
-            this.style = selectedStyleHeaderButton;
-        }
+            headerButton.onmouseover = function () {
+                this.style = selectedStyleHeaderButton;
+            }
+            headerButton.onmouseout = function () {
+                this.style = selectedStyleHeaderButton;
+            }
         }
     });
 
