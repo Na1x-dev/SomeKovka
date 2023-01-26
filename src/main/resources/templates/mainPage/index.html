@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Library</title>
     <!--    <link rel="stylesheet" href="../../static/css/general.css" th:rel="stylesheet"-->
     <!--          th:href="@{/css/general.css}">-->
-    <link rel="stylesheet" href="../../static/css/general.css" th:rel="stylesheet"
-          th:href="@{/css/general.css}">
-    <link rel="stylesheet" href="../../static/css/firstPage.css" th:rel="stylesheet"
-          th:href="@{/css/firstPage.css}">
-    <link rel="stylesheet" href="../../static/css/secondPage.css" th:rel="stylesheet"
-          th:href="@{/css/secondPage.css}">
-    <link rel="stylesheet" href="../../static/css/thirdPage.css" th:rel="stylesheet"
-          th:href="@{/css/thirdPage.css}">
+    <link rel="stylesheet" href="../../static/css/general.css" th:rel="stylesheet" th:href="@{/css/general.css}">
+    <link rel="stylesheet" href="../../static/css/firstPage.css" th:rel="stylesheet" th:href="@{/css/firstPage.css}">
+    <link rel="stylesheet" href="../../static/css/secondPage.css" th:rel="stylesheet" th:href="@{/css/secondPage.css}">
+    <link rel="stylesheet" href="../../static/css/thirdPage.css" th:rel="stylesheet" th:href="@{/css/thirdPage.css}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet"
-          th:href="@{https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700}"
-          th:rel="stylesheet">
+        th:href="@{https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700}" th:rel="stylesheet">
 </head>
+
 <body>
 
-<div class="header-and-main">
-    <header class="header">
-        <div class="header-button" id="header-button-1">Главная</div>
-        <div class="header-button" id="header-button-2">Галерея</div>
-        <div class="header-button" id="header-button-3">Контакты</div>
-    </header>
-
-
-    <main>
-        <div hidden class="first-page page">
-            <div class="background">
-                <h1 class="main-header-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. </h1>
-                <img class="background-image" th:src="@{/sources/1.png}">
+    <div class="header-and-main">
+        <header class="header">
+            <div class="header-button-container">
+                <div class="header-button" id="header-button-1">Главная</div>
             </div>
-        </div>
-
-        <div hidden class="second-page page">
-            <div>Second Page</div>
-        </div>
-
-        <div hidden class="third-page page">
-            <div>Third Page</div>
-        </div>
-    </main>
-</div>
+            <div class="header-button-container">
+                <div class="header-button" id="header-button-2">Галерея</div>
+            </div>
+            <div class="header-button-container">
+                <div class="header-button" id="header-button-3">Контакты</div>
+            </div>
+        </header>
 
 
-<footer></footer>
+        <main>
+            <div class="first-page page">
+                <div class="background">
+                    <h1 class="main-header-text">Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. </h1>
+                    <img class="background-image" th:src="@{/sources/1.png}">
+                </div>
+            </div>
 
-<script th:src="@{/js/main.js}"></script>
+            <div class="second-page page">
+                <div>Second Page</div>
+            </div>
+
+            <div class="third-page page">
+                <div>Third Page</div>
+            </div>
+        </main>
+    </div>
+
+
+    <footer></footer>
+
+    <script th:src="@{/js/main.js}"></script>
 
 </body>
+
 </html>

@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+.page{
+  height: 0;
+}
+
 body{
     position:fixed;
 }
@@ -21,7 +25,6 @@ header{
     height: 100vh;
 }
 
-
 .header-button{
     margin-left: auto;
     margin-right: auto;
@@ -30,8 +33,87 @@ header{
     width: 155px;
 }
 
+.header-button-container{
+  height: 60px;
+
+}
 
 .header-and-main{
     display:flex;
     flex-direction: row;
+}
+
+@keyframes textWeightUp {
+  from {
+    font-weight: 400;
+  }
+
+  to {
+    font-weight: 700;
+  }
+}
+
+@keyframes textWeightDown {
+  from {
+    font-weight: 700;
+  }
+
+  to {
+    font-weight: 400;
+  }
+}
+
+@keyframes textSizeUp {
+  from {
+      font-size: 25px;
+  }
+  to {
+      font-size: 30px;
+  }
+}
+
+@keyframes textSizeDown {
+  from {
+      font-size: 30px;
+  }
+  to {
+      font-size: 25px;
+  }
+}
+
+@keyframes pageShowUp {
+  from {
+    opacity: 0;
+      height: 0;
+  }
+  to {
+    opacity: 100;
+      height: 100vh;
+  }
+}
+
+@keyframes pageShowDown {
+  from {
+    opacity: 100;
+      height: 100vh;
+  }
+  to {
+    opacity: 0;
+      height: 0;
+  }
+}
+
+@keyframes initAnim {
+  0% {
+    opacity: 0%;
+      
+  }
+  25% {
+    opacity: 0%;
+  } 
+
+  100% {
+    opacity: 100%;
+      
+  }
 }
