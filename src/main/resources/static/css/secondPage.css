@@ -13,7 +13,8 @@
 .image-container {
     background-color: #cccccc;
     height: 70vh;
-    
+    margin: 20px;
+    border-radius: 10px;
 }
 
 .gallery {
@@ -36,10 +37,18 @@
 }
 
 .side-button{
-    text-align: center;
-    vertical-align: middle;
+    display: flex;
     width: 10vh;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+
+}
+
+.side-button:hover{
     background-color: #dddddd;
+    cursor: pointer;
 }
 
 .image-place {
@@ -47,3 +56,24 @@
     flex-direction: row;
 
 }
+
+.arrow-image-right{
+    width: 10vh;
+    height: 10vh;   
+    display: inline-block;
+}
+
+.arrow-image-left{
+    width: 10vh;
+    height: 10vh;
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+.arrow{
+    display: block;
+    width: 10vh;
+    height: 10vh;
+margin: auto;
+}
+
