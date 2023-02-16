@@ -25,7 +25,7 @@ header {
   height: 100vh;
 }
 
-.header-button {
+.a-button {
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
@@ -33,7 +33,7 @@ header {
   width: 155px;
 }
 
-.header-button-container {
+.a-button-container {
   height: 60px;
   text-align: center;
   display: flex;
@@ -46,21 +46,16 @@ header {
   flex-direction: row;
 }
 
-.header-button-container:hover {
+.a-button-container:hover {
   cursor: pointer;
 }
 
-.header-button-bottom-border {
+.header-button-bottom-border, .up-button-bottom-border {
   background-color: #555555;
 }
 
-/* .header-button-container:hover .header-button-border-bottom {
-  animation-duration: 0.5s;
-  animation-name: headerButtonHover;
-  animation-fill-mode: forwards;
-} */
 
-@keyframes headerButtonHover {
+@keyframes aButtonBorderHover {
   from {
     height: 0;
     width: 0;
@@ -72,7 +67,7 @@ header {
   }
 }
 
-@keyframes headerButtonHoverReverse {
+@keyframes aButtonBorderHoverReverse {
   to {
     height: 0;
     width: 0;
@@ -107,20 +102,24 @@ header {
 @keyframes textSizeUp {
   from {
     font-size: 25px;
+    cursor: pointer;
   }
 
   to {
     font-size: 30px;
+    cursor: default;
   }
 }
 
 @keyframes textSizeDown {
   from {
     font-size: 30px;
+    cursor: default;
   }
 
   to {
     font-size: 25px;
+    cursor: pointer;
   }
 }
 
@@ -128,18 +127,18 @@ header {
   0% {
     opacity: 0;
     height: 0;
-    background-color: #cccccc;
+    /* background-color: #cccccc; */
   
   }
 
-  70% {
+  /* 70% {
     opacity: 100;
     height: 100vh;
     background-color: #cccccc;
   
-  }
+  } */
   100% { 
-    background-color: #ededed;
+    /* background-color: #ededed; */
     opacity: 100;
     height: 100vh;
   }
@@ -149,22 +148,20 @@ header {
   0% {
     opacity: 100;
     height: 100vh;
-    background-color: #ededed;
+    /* background-color: #ededed; */
   }
 
-  30% {
+  /* 30% {
     opacity: 100;
     height: 100vh;
-    background-color: #cccccc;
-  }
+     background-color: #cccccc; 
+  } */
 
   100% {
     opacity: 0;
     height: 0;
-    background-color: #cccccc;
-  
+    /* background-color: #cccccc; */
   }
-
 }
 
 @keyframes initAnim {

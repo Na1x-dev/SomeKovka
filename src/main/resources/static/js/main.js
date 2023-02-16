@@ -3,7 +3,7 @@ let counter = 0;
 let scrollStatus = true;
 let headerButtons = [].slice.call(document.getElementsByClassName('header-button'));
 let headerButtonBottomBorders = [].slice.call(document.getElementsByClassName('header-button-bottom-border'));
-let defaultStyleHeaderButton = `
+let defaultStyleAButton = `
     font-weight: 400;
     border-bottom: 1px solid #ededed;`;
 let defaultStyleHeaderButtonHover = `
@@ -36,14 +36,14 @@ let pageShowDownAnim = `
     animation-name: pageShowDown;
     animation-fill-mode: forwards;`;
 
-let headerButtonBottomBorderAnim = `
+let aButtonBottomBorderAnim = `
     animation-duration: 0.5s;
-    animation-name: headerButtonHover;
+    animation-name: aButtonBorderHover;
     animation-fill-mode: forwards;`;
 
-let headerButtonBottomBorderAnimReverse = `  
+let aButtonBottomBorderAnimReverse = `  
     animation-duration: 0.5s;
-    animation-name: headerButtonHoverReverse;
+    animation-name: aButtonBorderHoverReverse;
     animation-fill-mode: forwards;`;
 
 let initAnimationStyle = `
@@ -51,9 +51,9 @@ let initAnimationStyle = `
     animation-name: initAnim;
     animation-fill-mode: forwards;`;
 
-let defaultHeaderButtonBorder = `  
+let defaultAButtonBorder = `  
     animation-duration: 0s;
-    animation-name: headerButtonHoverReverse;
+    animation-name: aButtonHoverReverse;
     animation-fill-mode: forwards;`;
 
 function setHeaderButtonsOnClick() {
@@ -61,12 +61,15 @@ function setHeaderButtonsOnClick() {
         headerButton.onclick = function () {
             if (counter != index) {
                 counter = index;
-                headerButtonBottomBorders[index].style = headerButtonBottomBorderAnimReverse;
+                applyingStandartBorderStyle(headerButtonBottomBorders[index]);
                 displayPage();
             }
-
-        }
+        };
     });
+}
+
+function applyingStandartBorderStyle(someButtonBorder){
+    someButtonBorder.style = aButtonBottomBorderAnimReverse;     
 }
 
 function setOnWheel() {
@@ -90,20 +93,19 @@ function setOnWheel() {
 
 
 function displayPage() {
-    updateHeaderButtonsAnim();
+    updateAButtonsAnim(counter, headerButtons);
+    updateBottomBordersAnim(counter, headerButtons, headerButtonBottomBorders);
     updatePagesAnim();
-    updateBottomBordersAnim();
 }
 
 
-function updateHeaderButtonsAnim() {
-    headerButtons.map(function (headerButton, index) {
-        if (getComputedStyle(headerButton).fontSize > "25px" && index != counter) {
-            headerButton.style = textSizeDownAnim;
+function updateAButtonsAnim(someCounter, someButtons) {
+    someButtons.map(function (someButton, index) {
+        if (getComputedStyle(someButton).fontSize > "25px" && index != someCounter) {
+            someButton.style = textSizeDownAnim;
         }
-
-        else if (getComputedStyle(headerButton).fontSize < "30px" && index == counter) {
-            headerButton.style = textSizeUpAnim;
+        else if (getComputedStyle(someButton).fontSize < "30px" && index == someCounter) {
+            someButton.style = textSizeUpAnim;
         };
     });
 }
@@ -113,30 +115,31 @@ function updatePagesAnim() {
         if (getComputedStyle(page).height > "0" && index != counter) {
             page.style = pageShowDownAnim;
         }
-
         else if (getComputedStyle(page).height < "100vh" && index == counter) {
             page.style = pageShowUpAnim;
-        };
+        }
     });
 }
 
-function updateBottomBordersAnim() {
-    headerButtons.map(function (headerButton, index) {
-        if (index != counter) {
-
-            headerButton.onmouseout = function () {
-                headerButtonBottomBorders[index].style = headerButtonBottomBorderAnimReverse;
+function updateBottomBordersAnim(someCounter, someButtons, someButtonBottomBorders) {
+    someButtons.map(function (someButton, index) {
+        
+        if (index != someCounter) {
+            someButton.onmouseout = function () {
+                someButtonBottomBorders[index].style = aButtonBottomBorderAnimReverse;
+                console.log(someButtonBottomBorders[index]);
             };
-            headerButton.onmouseover = function () {
-                headerButtonBottomBorders[index].style = headerButtonBottomBorderAnim;
+            someButton.onmouseover = function () {
+                someButtonBottomBorders[index].style = aButtonBottomBorderAnim;
             };
+            
         }
-        if (index == counter) {
-            headerButton.onmouseout = function () {
-                headerButtonBottomBorders[index].style = defaultHeaderButtonBorder;
+        if (index == someCounter) {
+            someButton.onmouseout = function () {
+                someButtonBottomBorders[index].style = defaultAButtonBorder;
             };
-            headerButton.onmouseover = function () {
-                headerButtonBottomBorders[index].style = defaultHeaderButtonBorder;
+            someButton.onmouseover = function () {
+                someButtonBottomBorders[index].style = defaultAButtonBorder;
             };
         }
     });
@@ -152,6 +155,7 @@ function main() {
     displayPage();
     setHeaderButtonsOnClick();
     setOnWheel();
+
 }
 
 main();

@@ -13,21 +13,23 @@
 .image-container {
     background-color: #cccccc;
     height: 70vh;
-    margin: 20px;
+    /* margin: 20px; */
     border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+
 }
 
 .gallery {
     display: flex;
     flex-direction: column;
-
 }
 
 .up-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    font-size: 20px;
+    font-size: 25px;
     padding: 10px;
     color: #444444;
 }
@@ -39,17 +41,13 @@
 .side-button{
     display: flex;
     width: 10vh;
-    margin-top: 20px;
-    margin-bottom: 20px;
     border-radius: 10px;
-
-
 }
 
-.side-button:hover{
+/* .side-button:hover{
     background-color: #dddddd;
     cursor: pointer;
-}
+} */
 
 .image-place {
     display: flex;
@@ -76,4 +74,29 @@
     height: 10vh;
 margin: auto;
 }
+
+@keyframes sideButtonHover {
+    from {
+        background-color: #ededed;
+        cursor: default;
+    }
+  
+    to {
+        background-color: #dddddd;
+        cursor: pointer;
+    }
+  }
+  
+  @keyframes sideButtonHoverReverse {
+    to {
+        background-color: #ededed;
+        cursor: pointer;
+    }
+  
+    from {
+        background-color: #dddddd;
+        cursor: default;
+    }
+  }
+
 
