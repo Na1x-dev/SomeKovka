@@ -65,14 +65,18 @@
                                 <img class="arrow-image-left" src="/sources/arrow.svg">
                             </div>
                         </div>
-                        <img class="image-container">
+                        <img class="image-container" alt="beautiful furniture">
                         <div class="side-button image-forward-button">
                             <div class="arrow">
                                 <img class="arrow-image-right" src="/sources/arrow.svg">
                             </div>
                         </div>
                     </div>
-                    <div class="progress-bar"></div>
+                    <div class="progress-bar">
+                        <div class="left-bar"></div>
+                        <div class="mid-bar"></div>
+                        <div class="right-bar"></div>
+                    </div>
                 </div>
             </div>
             <div class="third-page page">
@@ -83,6 +87,12 @@
 
 
     <footer></footer>
+
+    <script th:inline="javascript">
+        let benches = [[${ benches }]];
+        let swing = [[${ swing }]];
+        let tables = [[${ tables }]];
+    </script>
 
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/gallery.js}"></script>

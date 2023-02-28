@@ -127,7 +127,6 @@ function updateBottomBordersAnim(someCounter, someButtons, someButtonBottomBorde
         if (index != someCounter) {
             someButton.onmouseout = function () {
                 someButtonBottomBorders[index].style = aButtonBottomBorderAnimReverse;
-                console.log(someButtonBottomBorders[index]);
             };
             someButton.onmouseover = function () {
                 someButtonBottomBorders[index].style = aButtonBottomBorderAnim;

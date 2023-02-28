@@ -11,13 +11,13 @@
 }
 
 .image-container {
-    background-color: #cccccc;
+    /* background-color: #cccccc; */
     height: 70vh;
     /* margin: 20px; */
     border-radius: 10px;
     margin-left: 20px;
     margin-right: 20px;
-
+    opacity: 1;
 }
 
 .gallery {
@@ -34,11 +34,9 @@
     color: #444444;
 }
 
-.up-button {
-    
-}
+.up-button {}
 
-.side-button{
+.side-button {
     display: flex;
     width: 10vh;
     border-radius: 10px;
@@ -55,24 +53,56 @@
 
 }
 
-.arrow-image-right{
+.arrow-image-right {
     width: 10vh;
-    height: 10vh;   
+    height: 10vh;
     display: inline-block;
 }
 
-.arrow-image-left{
+.arrow-image-left {
     width: 10vh;
     height: 10vh;
     display: inline-block;
     transform: rotate(180deg);
 }
 
-.arrow{
+.arrow {
     display: block;
     width: 10vh;
     height: 10vh;
-margin: auto;
+    margin: auto;
+}
+
+
+.progress-bar{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    height: 2px;
+    /* background-color: #cccccc; */
+    margin-left: calc(12vh);
+    margin-right: calc(12vh);
+}
+
+.left-bar{
+    background-color: #cccccc;
+    height: 1px;
+    margin: 0;
+    width: 200px;
+}
+
+.mid-bar{
+    background-color: #444444;
+    height: 1px;
+    margin: 0;
+    /* width: 200px; */
+}
+
+.right-bar{
+    background-color: #cccccc;
+    height: 1px;
+    width: 200px;
+    margin: 0;
 }
 
 @keyframes sideButtonHover {
@@ -80,23 +110,85 @@ margin: auto;
         background-color: #ededed;
         cursor: default;
     }
-  
+
     to {
         background-color: #dddddd;
         cursor: pointer;
     }
-  }
-  
-  @keyframes sideButtonHoverReverse {
+}
+
+@keyframes sideButtonHoverReverse {
     to {
         background-color: #ededed;
-        cursor: pointer;
-    }
-  
-    from {
-        background-color: #dddddd;
         cursor: default;
     }
-  }
+
+    from {
+        background-color: #dddddd;
+        cursor: pointer;
+    }
+}
+
+@keyframes sideButtonDisable {
+    from {
+        background-color: #dddddd;
+        cursor: pointer;
+        opacity: 100%;
+    }
+
+    to {
+        background-color: #ededed;
+        cursor: default;
+        opacity: 0%;
+    }
+}
+
+@keyframes sideButtonEnable {
+    to {
+        background-color: #ededed;
+        cursor: default;
+        opacity: 100%;
+    }
+
+    from {
+        background-color: #ededed;
+        cursor: default;
+        opacity: 0%;
+    }
+}
+
+@keyframes sideButtonClick {
+    0% {
+        background-color: #dddddd;
+        cursor: pointer;
+    }
+
+    10% {
+        background-color: #d5d5d5;
+        cursor: pointer;
+    }
+
+    100% {
+        background-color: #dddddd;
+        cursor: pointer;
+    }
+}
 
 
+@keyframes imageAnim {
+    from{
+        opacity: 100%;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+@keyframes imageAnimReverse {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 100%;
+    }
+}
