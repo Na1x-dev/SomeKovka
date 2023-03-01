@@ -192,3 +192,21 @@
         opacity: 100%;
     }
 }
+
+@keyframes progressBarAnim {
+    from{
+        background-color: #444444;
+    }
+    to{
+        background-color: #cccccc;
+    }
+}
+
+@keyframes progressBarAnimReverse {
+    from{
+        background-color: #cccccc;
+    }
+    to{
+        background-color: #444444;
+    }
+}

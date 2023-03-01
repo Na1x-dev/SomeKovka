@@ -47,17 +47,30 @@ let imageAnimReverse = `
     animation-fill-mode: forwards;
     `;
 
+let progressBarAnim = `  
+    animation-duration: 0.5s;
+    animation-name: progressBarAnim;
+    animation-fill-mode: forwards;
+    `;
+
+let progressBarAnimReverse = `  
+    animation-duration: 0.5s;
+    animation-name: progressbarAnimReverse;
+    animation-fill-mode: forwards;
+    `;
+
 function loadImage() {
-    imageContainer.src = '/sources/gallery/' + modes[mode][imageCounter]; 
-    imageContainer.onload = function(){progressBarWork();};
+    imageContainer.style = imageAnim;
+    midBar.style = progressBarAnim;
+    midBar.style.width = segmentWidth + 'px';
+    setTimeout(function () {
+        imageContainer.src = '/sources/gallery/' + modes[mode][imageCounter];
+    }, 500);
+    imageContainer.onload = function () { imageContainer.style = imageAnimReverse; progressBarWork(); midBar.style = progressBarAnimReverse;midBar.style.width = segmentWidth + 'px'; };
 }
 
 function progressBarWork() {
-    // let prbw = imageArray;
-    // midBar.style.width = parseInt(getComputedStyle(progressBar).width, 10)/imageArray.length;
-    // console.log(prbw);
-    // lowerBar.style.width = "300px";
-    progressBar.style.width = getComputedStyle(imageContainer).width; 
+    progressBar.style.width = getComputedStyle(imageContainer).width;
     segmentWidth = parseInt(getComputedStyle(imageContainer).width, 10) / modes[mode].length;
     midBar.style.width = segmentWidth + 'px';
     leftBar.style.width = segmentWidth * imageCounter + 'px';
@@ -65,26 +78,8 @@ function progressBarWork() {
 }
 
 function progressBarInit() {
-    // progressBar.style.width = getComputedStyle(imageContainer).width; 
-    // segmentWidth = parseInt(getComputedStyle(imageContainer).width, 10) / modes[mode].length;
-    // midBar.style.width = segmentWidth + 'px';
-    // // console.log(getComputedStyle(midBar).width);
-    // leftBar.style.width = 0 + 'px';
-    
-    // segmentWidth = (parseInt(getComputedStyle(progressBar).width, 10) / imageArray.length) + 'px';
-  
 
 }
-
-
-// n - картинок
-// wl - ширина нижнего бара
-// wu - ширина верхнего бара
-// imageCounter - текущая картинка
-// w - полная ширина бара 
-
-// wl = (w/n) * (1 + imageCounter)
-// wl = (w/n) * imageCounter
 
 
 function onSideButtonClick() {
@@ -93,10 +88,12 @@ function onSideButtonClick() {
             if (index == 0 && imageCounter > 0) {
                 imageCounter--;
                 sideButton.style = clickSideButton;
+                loadImage();
             }
             if (index == 1 && imageCounter < modes[mode].length - 1) {
                 imageCounter++;
                 sideButton.style = clickSideButton;
+                loadImage();
             }
             if (index == 0 && imageCounter == 0) {
                 sideButton.style = sideButtonAnimReverse;
@@ -104,7 +101,6 @@ function onSideButtonClick() {
             if (index == 1 && imageCounter == modes[mode].length - 1) {
                 sideButton.style = sideButtonAnimReverse;
             }
-            loadImage();
             pictureLimiter();
             // progressBarWork();
         }
